@@ -451,9 +451,18 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "opt.l"
-#line 2 "opt.l"
+#line 3 "opt.l"
+/* Autor: Lopez Santibañez Jimenez Luis Gerardo
+   Programa en LEX  que cambia los ++ por --
+   y los -- por ++
+*/
+/*
+Definimos el archivo de salida
+*/
 FILE *archSal;
-#line 457 "lex.yy.c"
+/* Definimos nuestras expresiones regulares para detectar ++,-- y espacios */
+/* Definimos que sera escrito en caso de hacer match con las expresiones */
+#line 466 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -635,9 +644,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 8 "opt.l"
+#line 18 "opt.l"
 
-#line 641 "lex.yy.c"
+#line 650 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -722,31 +731,31 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 9 "opt.l"
+#line 19 "opt.l"
 fprintf(archSal, "--");
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 10 "opt.l"
+#line 20 "opt.l"
 fprintf(archSal, "++");
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 11 "opt.l"
+#line 21 "opt.l"
 fprintf(archSal, "%s", yytext);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 12 "opt.l"
+#line 22 "opt.l"
 fprintf(archSal, "%s", yytext);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 13 "opt.l"
+#line 23 "opt.l"
 ECHO;
 	YY_BREAK
-#line 750 "lex.yy.c"
+#line 759 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1743,9 +1752,10 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 13 "opt.l"
+#line 23 "opt.l"
 
 
+//Definimos nuestra funcion principal, el archivo de entrada y el de salida
 void main(int argc, char *argv[])
 {
 yyin = fopen(argv[1],"r");
