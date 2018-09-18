@@ -6,6 +6,9 @@
 #include <string.h>
 
 FILE *archSal;
+FILE *tokens;
+FILE *stringTable;
+FILE *identTable;
 /* Definimos nuestras expresiones regulares para detectar ++,-- y spaces */
 void regexMatched(int class, char *text, int ix);
 // void handleErr(char *err);
@@ -45,7 +48,7 @@ uppercase [A-Z]
 lowercase [a-z]
 digit [0-9]
 asignacion :=
-relacionales \.DIF\.|\.IGL\.|\.MN\.|\.MNI\.|\.MY\.|\.MYI\.
+relacionales (\.(DIF|IGL|MN|MNI|MY|MYI)\.)
 aritmeticos \+|-|\*|\/|%
 especiales \(|\)|\[|\]|,|;
 entero {digit}+
