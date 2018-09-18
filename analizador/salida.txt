@@ -1,1 +1,2 @@
-reservadas  identificador asignacion  entero especiales 
+reservadas  identificador asignacion  cadena especiales 
+reservadas  identificador asignacion  cientificoespeciales 

@@ -1,1 +1,2 @@
-Entero fibo := 5 ;
+Entero fibo := "hla prros" ;
+Entero exp := 5e2;

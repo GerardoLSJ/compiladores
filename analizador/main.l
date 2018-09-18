@@ -50,8 +50,9 @@ aritmeticos \+|-|\*|\/|%
 especiales \(|\)|\[|\]|,|;
 entero {digit}+
 real ({digit}+\.|\.{digit}+){digit}*
-cientifico ({real}|{entero})(e|E)(\+|-)?{entero}
+exp ({real}|{entero})(e|E)(\+|-)?{entero}
 cadena \"[^"](\\.|[^\\"])*\"
+stringCte (\"(.+)\")
 reservadas Bul|Cadena|Cierto|Entero|Falso|Haz|Mientras|Para|Real|Si|Sino
 identificador {lowercase}(({uppercase}|{lowercase}){0,7})[^{digit}{newline}]
 
@@ -64,10 +65,10 @@ identificador {lowercase}(({uppercase}|{lowercase}){0,7})[^{digit}{newline}]
 {asignacion}    fprintf(archSal, "asignacion ");    regexMatched(3, yytext, -1);
 {relacionales}  fprintf(archSal, "relacionales");   regexMatched(4, yytext, -1);
 {aritmeticos}   fprintf(archSal, "aritmeticos");    regexMatched(5, yytext, -1);
-{cadena}        fprintf(archSal, "cadena");         regexMatched(6, yytext, -1); //c.push(yytext) inseta, return ix
+{stringCte}        fprintf(archSal, "cadena");         regexMatched(6, yytext, -1); //c.push(yytext) inseta, return ix
 {entero}        fprintf(archSal, "entero");         regexMatched(7, yytext, -1); //e.push(yytext) buscar, insertar, return ix
 {real}          fprintf(archSal, "real");           regexMatched(8, yytext, -1); //r.push(yytext)buscar, insertar, return ix
-{cientifico}    fprintf(archSal, "cientifico");     regexMatched(8, yytext, -1); // r.push(yytext) buscar, insertar, return ixreturn ix 
+{exp}    fprintf(archSal, "cientifico");     regexMatched(8, yytext, -1); // r.push(yytext) buscar, insertar, return ixreturn ix 
 {space}       fprintf(archSal, " "); 
 {newline}         fprintf(archSal, "\n"); line++;
 {tab}           fprintf(archSal, "\t"); 
