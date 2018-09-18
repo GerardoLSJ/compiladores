@@ -1,0 +1,1 @@
+reservadas  identificador asignacion  entero especiales 

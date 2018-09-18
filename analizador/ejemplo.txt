@@ -1,0 +1,1 @@
+Entero fibo := 5 ;
