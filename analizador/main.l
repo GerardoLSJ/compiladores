@@ -10,10 +10,8 @@ FILE *tokens;
 FILE *stringTable;
 FILE *identTable;
 /* Definimos nuestras expresiones regulares para detectar ++,-- y spaces */
-void regexMatched(int class, char *text, int ix);
-// void handleErr(char *err);
-int findInStaticTable(int class, char *text);
- int line = 0;
+void aux(int class, char *text);
+int lineCount = 0;
 
 char *RESERVADAS[] = {
     "Bul", "Cadena", "Cierto", "Entero", "Falso", "Haz","Mientras", "Para", "Real", "Si","Sino"
@@ -58,24 +56,25 @@ cadena \"[^"](\\.|[^\\"])*\"
 stringCte (\"(.+)\")
 reservadas Bul|Cadena|Cierto|Entero|Falso|Haz|Mientras|Para|Real|Si|Sino
 identificador {lowercase}(({uppercase}|{lowercase}){0,7})[^{digit}{newline}]
-
+comment \$\$(.*)\$
 
 
 %%
-{reservadas}    fprintf(archSal, "reservadas ");    regexMatched(0, yytext, -1);
-{identificador} fprintf(archSal, "identificador "); regexMatched(1, yytext, -1); //i.push(yytext) buscar, insertar, return ix
-{especiales}    fprintf(archSal, "especiales ");    regexMatched(2, yytext, -1);
-{asignacion}    fprintf(archSal, "asignacion ");    regexMatched(3, yytext, -1);
-{relacionales}  fprintf(archSal, "relacionales");   regexMatched(4, yytext, -1);
-{aritmeticos}   fprintf(archSal, "aritmeticos");    regexMatched(5, yytext, -1);
-{stringCte}        fprintf(archSal, "cadena");         regexMatched(6, yytext, -1); //c.push(yytext) inseta, return ix
-{entero}        fprintf(archSal, "entero");         regexMatched(7, yytext, -1); //e.push(yytext) buscar, insertar, return ix
-{real}          fprintf(archSal, "real");           regexMatched(8, yytext, -1); //r.push(yytext)buscar, insertar, return ix
-{exp}    fprintf(archSal, "cientifico");     regexMatched(8, yytext, -1); // r.push(yytext) buscar, insertar, return ixreturn ix 
-{space}       fprintf(archSal, " "); 
-{newline}         fprintf(archSal, "\n"); line++;
+{reservadas}    fprintf(archSal, "reservadas ");    aux(0, yytext);
+{identificador} fprintf(archSal, "identificador "); aux(1, yytext); //i.push(yytext) buscar, insertar, return ix
+{especiales}    fprintf(archSal, "especiales ");    aux(2, yytext);
+{asignacion}    fprintf(archSal, "asignacion ");    aux(3, yytext);
+{relacionales}  fprintf(archSal, "relacionales");   aux(4, yytext);
+{aritmeticos}   fprintf(archSal, "aritmeticos");    aux(5, yytext);
+{stringCte}     fprintf(archSal, "cadena");         aux(6, yytext); //c.push(yytext) inseta, return ix
+{entero}        fprintf(archSal, "entero");         aux(7, yytext); //e.push(yytext) buscar, insertar, return ix
+{real}          fprintf(archSal, "real");           aux(8, yytext); //r.push(yytext)buscar, insertar, return ix
+{exp}           fprintf(archSal, "cientifico");     aux(8, yytext); // r.push(yytext) buscar, insertar, return ixreturn ix 
+{space}         fprintf(archSal, " "); 
+{newline}       fprintf(archSal, "\n"); lineCount++;
 {tab}           fprintf(archSal, "\t"); 
-.               fprintf(archSal, "error line %d {%s}", line, yytext); //handleErr(yytext);
+{comment}       fprintf(archSal, " "); 
+.               fprintf(archSal, "error lineCount %d {%s}", lineCount, yytext); //handleErr(yytext);
 
 
 %%
@@ -92,13 +91,32 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-void regexMatched(int class, char *text, int ix){
+void aux(int type, char *text){
+    char **table;
+    switch(type){
+        case 0: 
+        table = RESERVADAS;
+        break;
 
+        case 2: 
+        table = ESPECIALES;
+        break;
+
+        case 3: 
+        table = ASIGNACION;
+        break;
+
+        case 4: 
+        table = RELACIONALES;
+        break;
+
+        case 5: 
+        table = ARITMETICOS;
+        break;
+
+    }
+
+    /* Buscar elemento en tabla y incrementar o pushear*/
 
 }
 
-
-
-int findInStaticTable(int class, char *text){
-    return 0;
-}
