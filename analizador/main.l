@@ -190,8 +190,6 @@ typedef struct strQueue{
 /* -------------------------------------------------------------- */
 
 
-//int i = 0; Para qué era?
-
 /* Definimos nuestras expresiones regulares para detectar ++,-- y spaces */
 void aux(int class, char *text);
 int lineCount = 0;
@@ -244,10 +242,17 @@ comment         \$\$(.*)\$
 %%
 {reservadas}    {
                     fprintf(archSal, "reservadas ");
-                    // for (i = 0; i < 11; i++){
-                    //     if (strcmp(text, table[i]) == 0)
-                    //         fprintf(tokens, "(0,%d)", i);
-                    // }
+                    int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
+                    printf("Length of array: %d\n", len );
+
+                     for (int i = 0; i < len; i++){
+                         //
+                         if (strcmp(yytext, RESERVADAS[i]) == 0){
+                             printf("Found = %s \n", RESERVADAS[i] );
+                             fprintf(tokens, "(0,%d)\n", i);
+
+                         }
+                     }
                 }
 {identificador} fprintf(archSal, "identificador "); aux(1, yytext); //i.push(yytext) buscar, insertar, return ix
 {especiales}    {
@@ -259,7 +264,7 @@ comment         \$\$(.*)\$
                 }
 {asignacion}    {
                     fprintf(archSal, "asignacion ");
-                    fprintf(tokens, "(0,0)");
+                    //fprintf(tokens, "(0,0)");
                 }
 {relacionales}  {
                     fprintf(archSal, "relacionales");
@@ -292,37 +297,14 @@ int main(int argc, char *argv[]) {
 
     yyin = fopen(argv[1],"r");
     archSal = fopen("salida.txt","w");
+    tokens = fopen("tokens.txt","w");
+
     yylex();
     fclose(archSal);
     return 0;
 }
 
 void aux(int type, char *text){
-    char **table;
-
-    switch(type){
-        
-        case 0: 
-        table = RESERVADAS;
-        break;
-
-        case 2: 
-        table = ESPECIALES;
-        break;
-
-        case 3: 
-        table = ASIGNACION;
-        break;
-
-        case 4: 
-        table = RELACIONALES;
-        break;
-
-        case 5: 
-        table = ARITMETICOS;
-        break;
-
-    }
 
     /* Buscar elemento en tabla y incrementar o pushear*/
 
