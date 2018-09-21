@@ -5,10 +5,6 @@
 */     
 #include <string.h>
 
-FILE *archSal;
-FILE *tokens;
-FILE *stringTable;
-FILE *identTable;
 
 /* ------------------------- Estructuras ------------------------- */
 typedef struct Cadena{
@@ -40,6 +36,12 @@ typedef struct strQueue{
 
     int size;
 }strQueue;
+
+FILE *archSal;
+FILE *tokens;
+FILE *stringTable;
+FILE *identTable;
+intQueue * tokenQ;
 
 /* ------------------------- Funciones ------------------------- */
 
@@ -157,8 +159,8 @@ typedef struct strQueue{
 		printf("\n -------------------------------- \n");
 		return;
 	}
-    void muestraTablaInt(intQueue *q, char *tablaN) {
-		printf("\n -- -- -- -- -- %s -- -- -- -- -- \n", tablaN);
+    void muestraTablaInt(intQueue *q) {
+		printf("\n -- -- -- -- -- -- -- -- -- -- \n");
 		printf("\n Clase\t\tValor \n");
 
 		Numero * pointer = (Numero*)malloc(sizeof(Numero));
@@ -248,8 +250,9 @@ comment         \$\$(.*)\$
                      for (int i = 0; i < len; i++){
                          //
                          if (strcmp(yytext, RESERVADAS[i]) == 0){
-                             printf("Found = %s \n", RESERVADAS[i] );
+                             insertaColaNum(tokenQ, 0, i);
                              fprintf(tokens, "(0,%d)\n", i);
+
 
                          }
                      }
@@ -298,9 +301,13 @@ int main(int argc, char *argv[]) {
     yyin = fopen(argv[1],"r");
     archSal = fopen("salida.txt","w");
     tokens = fopen("tokens.txt","w");
-
+    tokenQ = (intQueue*) malloc(sizeof(intQueue));
+    initQueueInt(tokenQ);
     yylex();
     fclose(archSal);
+
+    muestraTablaInt(tokenQ);
+
     return 0;
 }
 
