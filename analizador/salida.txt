@@ -1,4 +1,5 @@
 reservadas  identificador asignacion  cadena especiales 
 reservadas  identificador asignacion  enteroespeciales 
 reservadas  identificador asignacion  cientificoespeciales 
+identificador asignacion  cientificoespeciales 
 reservadas especiales  entero relacionales entero especiales especiales 

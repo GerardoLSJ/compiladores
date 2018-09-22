@@ -42,16 +42,24 @@ FILE *tokens;
 FILE *stringTable;
 FILE *identTable;
 intQueue * tokenQ;
+strQueue * identQ;
 
 /* ------------------------- Funciones ------------------------- */
 
 	// Funciones de tipo Caracter
-	void insertaColaStr(strQueue *q, int posicion, char *valor) {
+	void insertaColaStr(strQueue *q, int index, char *valor) {
+        printf("insertaColaStr \n");
+        if(busquedaStr(q,valor) != -1){
+            printf("YA ESTA EN COLA ESTE STR \n");
+            return;
+        }
+        printf("AFTER insertaColaStr \n");
+
 		Cadena * item = (Cadena*)malloc(sizeof(Cadena));
         
         item->cadena = (char*)malloc(sizeof(char)*strlen(valor));
         strcpy(item->cadena, valor);
-		item->posicion = posicion;
+		item->posicion = index;
 
 		if (q->head == NULL) { // Primer elemento en la cola
 			
@@ -74,7 +82,16 @@ intQueue * tokenQ;
 		
 		return;
 	}
-
+    int busquedaStr(strQueue *q, char *str) {
+        Cadena *pointer = (Cadena*) malloc(sizeof(Cadena));
+        pointer = q->head;
+        while( pointer != NULL) {
+			if (!strcmp(pointer->cadena, str))
+				return pointer->posicion;
+			pointer = pointer->next;
+		}
+        return -1;
+    }
     // void busquedaItem(Queue *q, char *valor) {
     //     Cadena *pointer = (Cadena*)malloc(sizeof(Cadena));
     //     pointer = q->head;
@@ -257,7 +274,12 @@ comment         \$\$(.*)\$
                          }
                      }
                 }
-{identificador} fprintf(archSal, "identificador "); aux(1, yytext); //i.push(yytext) buscar, insertar, return ix
+{identificador} {
+    fprintf(archSal, "identificador "); 
+    printf("%d \n",identQ->size);
+    insertaColaStr(identQ,identQ->size ,yytext );
+
+}
 {especiales}    {
                     fprintf(archSal, "especiales ");
                     // for (i = 0; i < 6; i++){
@@ -302,7 +324,10 @@ int main(int argc, char *argv[]) {
     archSal = fopen("salida.txt","w");
     tokens = fopen("tokens.txt","w");
     tokenQ = (intQueue*) malloc(sizeof(intQueue));
+    identQ = (strQueue*) malloc(sizeof(strQueue));
     initQueueInt(tokenQ);
+    initQueueStr(identQ);
+
     yylex();
     fclose(archSal);
 

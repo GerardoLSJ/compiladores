@@ -645,16 +645,24 @@ FILE *tokens;
 FILE *stringTable;
 FILE *identTable;
 intQueue * tokenQ;
+strQueue * identQ;
 
 /* ------------------------- Funciones ------------------------- */
 
 	// Funciones de tipo Caracter
-	void insertaColaStr(strQueue *q, int posicion, char *valor) {
+	void insertaColaStr(strQueue *q, int index, char *valor) {
+        printf("insertaColaStr \n");
+        if(busquedaStr(q,valor) != -1){
+            printf("YA ESTA EN COLA ESTE STR \n");
+            return;
+        }
+        printf("AFTER insertaColaStr \n");
+
 		Cadena * item = (Cadena*)malloc(sizeof(Cadena));
         
         item->cadena = (char*)malloc(sizeof(char)*strlen(valor));
         strcpy(item->cadena, valor);
-		item->posicion = posicion;
+		item->posicion = index;
 
 		if (q->head == NULL) { // Primer elemento en la cola
 			
@@ -677,7 +685,16 @@ intQueue * tokenQ;
 		
 		return;
 	}
-
+    int busquedaStr(strQueue *q, char *str) {
+        Cadena *pointer = (Cadena*) malloc(sizeof(Cadena));
+        pointer = q->head;
+        while( pointer != NULL) {
+			if (!strcmp(pointer->cadena, str))
+				return pointer->posicion;
+			pointer = pointer->next;
+		}
+        return -1;
+    }
     // void busquedaItem(Queue *q, char *valor) {
     //     Cadena *pointer = (Cadena*)malloc(sizeof(Cadena));
     //     pointer = q->head;
@@ -824,7 +841,7 @@ char *ARITMETICOS[] = {"+","-","*","/","%"};
 
 
 /* Definiciones */
-#line 828 "lex.yy.c"
+#line 845 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1006,9 +1023,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 244 "main.l"
+#line 261 "main.l"
 
-#line 1012 "lex.yy.c"
+#line 1029 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -1093,7 +1110,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 245 "main.l"
+#line 262 "main.l"
 {
                     fprintf(archSal, "reservadas ");
                     int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
@@ -1113,12 +1130,17 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 260 "main.l"
-fprintf(archSal, "identificador "); aux(1, yytext); //i.push(yytext) buscar, insertar, return ix
+#line 277 "main.l"
+{
+    fprintf(archSal, "identificador "); 
+    printf("%d \n",identQ->size);
+    insertaColaStr(identQ,identQ->size ,yytext );
+
+}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 261 "main.l"
+#line 283 "main.l"
 {
                     fprintf(archSal, "especiales ");
                     // for (i = 0; i < 6; i++){
@@ -1129,7 +1151,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 268 "main.l"
+#line 290 "main.l"
 {
                     fprintf(archSal, "asignacion ");
                     //fprintf(tokens, "(0,0)");
@@ -1137,7 +1159,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 272 "main.l"
+#line 294 "main.l"
 {
                     fprintf(archSal, "relacionales");
                     // for (i = 0; i < 6; i++){
@@ -1148,7 +1170,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 279 "main.l"
+#line 301 "main.l"
 {
                     fprintf(archSal, "aritmeticos");
                     // for (i = 0; i < 5; i++){
@@ -1159,56 +1181,56 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 286 "main.l"
+#line 308 "main.l"
 fprintf(archSal, "cadena");         aux(6, yytext); //c.push(yytext) inseta, return ix
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 287 "main.l"
+#line 309 "main.l"
 fprintf(archSal, "entero");         aux(7, yytext); //e.push(yytext) buscar, insertar, return ix
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 288 "main.l"
+#line 310 "main.l"
 fprintf(archSal, "real");           aux(8, yytext); //r.push(yytext)buscar, insertar, return ix
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 289 "main.l"
+#line 311 "main.l"
 fprintf(archSal, "cientifico");     aux(8, yytext); // r.push(yytext) buscar, insertar, return ixreturn ix 
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 290 "main.l"
+#line 312 "main.l"
 fprintf(archSal, " "); 
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 291 "main.l"
+#line 313 "main.l"
 fprintf(archSal, "\n"); lineCount++;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 292 "main.l"
+#line 314 "main.l"
 fprintf(archSal, "\t"); 
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 293 "main.l"
+#line 315 "main.l"
 fprintf(archSal, " "); 
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 294 "main.l"
+#line 316 "main.l"
 fprintf(archSal, "error lineCount %d {%s}", lineCount, yytext); //handleErr(yytext);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 297 "main.l"
+#line 319 "main.l"
 ECHO;
 	YY_BREAK
-#line 1212 "lex.yy.c"
+#line 1234 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2205,7 +2227,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 297 "main.l"
+#line 319 "main.l"
 
 
 
@@ -2215,7 +2237,10 @@ int main(int argc, char *argv[]) {
     archSal = fopen("salida.txt","w");
     tokens = fopen("tokens.txt","w");
     tokenQ = (intQueue*) malloc(sizeof(intQueue));
+    identQ = (strQueue*) malloc(sizeof(strQueue));
     initQueueInt(tokenQ);
+    initQueueStr(identQ);
+
     yylex();
     fclose(archSal);
 
