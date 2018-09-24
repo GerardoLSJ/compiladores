@@ -50,13 +50,13 @@ strQueue * espQ;
 /* ------------------------- Funciones ------------------------- */
 
 	// Funciones de tipo Caracter
-	void insertaColaStr(strQueue *q, int pos, char *valor, int clase, intQueue *t ) {
+	int insertaColaStr(strQueue *q, int pos, char *valor, int clase ) {
         int index = busquedaStr(q,valor);
         if(index != -1){
             printf("DUPE: valor '%s' clase %d , idx %d   \n", valor,clase,index);
             // insertaColaNum(t, 6, 122);
 
-            return;
+            return index;
         }
 
 		Cadena * item = (Cadena*)malloc(sizeof(Cadena));
@@ -73,7 +73,7 @@ strQueue * espQ;
 			q->tail = item;
 
 			q->size += 1;
-			return;
+			return q->size;
 		}
 
 		// Si ya existen elementos
@@ -84,7 +84,7 @@ strQueue * espQ;
 
 		q->size += 1;
 		
-		return;
+		return q->size;
 	}
     int busquedaStr(strQueue *q, char *str) {
         Cadena *pointer = (Cadena*) malloc(sizeof(Cadena));
@@ -275,34 +275,41 @@ comment         \$\$(.*)\$
                 }
 {especiales}    {
                     fprintf(archSal, "especiales ");
-                    insertaColaStr(espQ,espQ->size ,yytext, 2, tokenQ );
+                    int idx = insertaColaStr(espQ,espQ->size ,yytext, 2 );
+                    insertaColaNum(tokenQ, 2, idx);
 
                 }
 {identificador} {
                     fprintf(archSal, "identificador "); 
-                    insertaColaStr(identQ,identQ->size ,yytext, 1, tokenQ );
-
+                    int idx = insertaColaStr(identQ,identQ->size ,yytext, 1 );
+                    insertaColaNum(tokenQ, 1, idx);
 }
 
 {asignacion}    {
                     fprintf(archSal, "asignacion ");
+                    insertaColaNum(tokenQ, 3, 0);
                     //fprintf(tokens, "(0,0)");
                 }
 {relacionales}  {
                     fprintf(archSal, "relacionales");
-                    // for (i = 0; i < 6; i++){
-                    //     if (strcmp(text, table[i]) == 0)
-                    //         fprintf(tokens, "(0,%d)", i);
-                    // }
+                    int len = sizeof(RELACIONALES) / sizeof(RELACIONALES[0]);
+                    for (int i = 0; i < len; i++){
+                         if (strcmp(yytext, RELACIONALES[i]) == 0){
+                             insertaColaNum(tokenQ, 4, i);
+                         }
+                     }
                 }
 {aritmeticos}   {
-                    fprintf(archSal, "aritmeticos");
-                    // for (i = 0; i < 5; i++){
-                    //     if (strcmp(text, table[i]) == 0)
-                    //         fprintf(tokens, "(0,%d)", i);
-                    // }
+                    printf("---aritmeticos---");
+                    int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
+                    for (int i = 0; i < len; i++){
+                         if (strcmp(yytext, ARITMETICOS[i]) == 0){
+                             insertaColaNum(tokenQ, 5, i);
+                         }
+                     }
                 }
 {stringCte}     {
+                        printf("---stringCte---");
 
 
 }

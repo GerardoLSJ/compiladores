@@ -653,13 +653,13 @@ strQueue * espQ;
 /* ------------------------- Funciones ------------------------- */
 
 	// Funciones de tipo Caracter
-	void insertaColaStr(strQueue *q, int pos, char *valor, int clase, intQueue *t ) {
+	int insertaColaStr(strQueue *q, int pos, char *valor, int clase ) {
         int index = busquedaStr(q,valor);
         if(index != -1){
             printf("DUPE: valor '%s' clase %d , idx %d   \n", valor,clase,index);
             // insertaColaNum(t, 6, 122);
 
-            return;
+            return index;
         }
 
 		Cadena * item = (Cadena*)malloc(sizeof(Cadena));
@@ -676,7 +676,7 @@ strQueue * espQ;
 			q->tail = item;
 
 			q->size += 1;
-			return;
+			return q->size;
 		}
 
 		// Si ya existen elementos
@@ -687,7 +687,7 @@ strQueue * espQ;
 
 		q->size += 1;
 		
-		return;
+		return q->size;
 	}
     int busquedaStr(strQueue *q, char *str) {
         Cadena *pointer = (Cadena*) malloc(sizeof(Cadena));
@@ -1131,105 +1131,112 @@ YY_RULE_SETUP
 #line 276 "main.l"
 {
                     fprintf(archSal, "especiales ");
-                    insertaColaStr(espQ,espQ->size ,yytext, 2, tokenQ );
+                    int idx = insertaColaStr(espQ,espQ->size ,yytext, 2 );
+                    insertaColaNum(tokenQ, 2, idx);
 
                 }
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 281 "main.l"
+#line 282 "main.l"
 {
                     fprintf(archSal, "identificador "); 
-                    insertaColaStr(identQ,identQ->size ,yytext, 1, tokenQ );
-
+                    int idx = insertaColaStr(identQ,identQ->size ,yytext, 1 );
+                    insertaColaNum(tokenQ, 1, idx);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 287 "main.l"
+#line 288 "main.l"
 {
                     fprintf(archSal, "asignacion ");
+                    insertaColaNum(tokenQ, 3, 0);
                     //fprintf(tokens, "(0,0)");
                 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 291 "main.l"
+#line 293 "main.l"
 {
                     fprintf(archSal, "relacionales");
-                    // for (i = 0; i < 6; i++){
-                    //     if (strcmp(text, table[i]) == 0)
-                    //         fprintf(tokens, "(0,%d)", i);
-                    // }
+                    int len = sizeof(RELACIONALES) / sizeof(RELACIONALES[0]);
+                    for (int i = 0; i < len; i++){
+                         if (strcmp(yytext, RELACIONALES[i]) == 0){
+                             insertaColaNum(tokenQ, 4, i);
+                         }
+                     }
                 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 298 "main.l"
+#line 302 "main.l"
 {
-                    fprintf(archSal, "aritmeticos");
-                    // for (i = 0; i < 5; i++){
-                    //     if (strcmp(text, table[i]) == 0)
-                    //         fprintf(tokens, "(0,%d)", i);
-                    // }
+                    printf("---aritmeticos---");
+                    int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
+                    for (int i = 0; i < len; i++){
+                         if (strcmp(yytext, ARITMETICOS[i]) == 0){
+                             insertaColaNum(tokenQ, 5, i);
+                         }
+                     }
                 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 305 "main.l"
+#line 311 "main.l"
 {
+                        printf("---stringCte---");
 
 
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 309 "main.l"
+#line 316 "main.l"
 fprintf(archSal, "entero");         aux(7, yytext); //e.push(yytext) buscar, insertar, return ix
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 310 "main.l"
+#line 317 "main.l"
 fprintf(archSal, "real");           aux(8, yytext); //r.push(yytext)buscar, insertar, return ix
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 311 "main.l"
+#line 318 "main.l"
 fprintf(archSal, "cientifico");     aux(8, yytext); // r.push(yytext) buscar, insertar, return ixreturn ix 
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 312 "main.l"
+#line 319 "main.l"
 fprintf(archSal, " "); 
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 313 "main.l"
+#line 320 "main.l"
 fprintf(archSal, "\n"); lineCount++;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 314 "main.l"
+#line 321 "main.l"
 fprintf(archSal, "\t"); 
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 315 "main.l"
+#line 322 "main.l"
 fprintf(archSal, " "); 
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 316 "main.l"
+#line 323 "main.l"
 fprintf(archSal, "error lineCount %d {%s}", lineCount, yytext); //handleErr(yytext);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 319 "main.l"
+#line 326 "main.l"
 ECHO;
 	YY_BREAK
-#line 1233 "lex.yy.c"
+#line 1240 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2226,7 +2233,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 319 "main.l"
+#line 326 "main.l"
 
 
 
