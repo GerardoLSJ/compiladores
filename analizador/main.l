@@ -43,23 +43,27 @@ FILE *stringTable;
 FILE *identTable;
 intQueue * tokenQ;
 strQueue * identQ;
+strQueue * strQ;
+strQueue * floatQ;
+strQueue * espQ;
 
 /* ------------------------- Funciones ------------------------- */
 
 	// Funciones de tipo Caracter
-	void insertaColaStr(strQueue *q, int index, char *valor) {
-        printf("insertaColaStr \n");
-        if(busquedaStr(q,valor) != -1){
-            printf("YA ESTA EN COLA ESTE STR \n");
+	void insertaColaStr(strQueue *q, int pos, char *valor, int clase, intQueue *t ) {
+        int index = busquedaStr(q,valor);
+        if(index != -1){
+            printf("DUPE: valor '%s' clase %d , idx %d   \n", valor,clase,index);
+            // insertaColaNum(t, 6, 122);
+
             return;
         }
-        printf("AFTER insertaColaStr \n");
 
 		Cadena * item = (Cadena*)malloc(sizeof(Cadena));
         
         item->cadena = (char*)malloc(sizeof(char)*strlen(valor));
         strcpy(item->cadena, valor);
-		item->posicion = index;
+		item->posicion = pos;
 
 		if (q->head == NULL) { // Primer elemento en la cola
 			
@@ -161,9 +165,9 @@ strQueue * identQ;
         return -1;
     }
 
-    void muestraTablaStr(strQueue *q, char *tablaN) {
-		printf("\n -- -- -- -- -- %s -- -- -- -- -- \n", tablaN);
-		printf("\n Clase\t\tValor \n");
+    void muestraTablaStr(strQueue *q) {
+		printf("\n -- -- -- -- -- -- -- -- -- -- \n");
+		printf("\n Indice\t\tValor \n");
 
 		Cadena * pointer = (Cadena*)malloc(sizeof(Cadena));
 		pointer = q->head;
@@ -262,31 +266,24 @@ comment         \$\$(.*)\$
 {reservadas}    {
                     fprintf(archSal, "reservadas ");
                     int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
-                    printf("Length of array: %d\n", len );
-
-                     for (int i = 0; i < len; i++){
-                         //
+                    for (int i = 0; i < len; i++){
                          if (strcmp(yytext, RESERVADAS[i]) == 0){
                              insertaColaNum(tokenQ, 0, i);
                              fprintf(tokens, "(0,%d)\n", i);
-
-
                          }
                      }
                 }
-{identificador} {
-    fprintf(archSal, "identificador "); 
-    printf("%d \n",identQ->size);
-    insertaColaStr(identQ,identQ->size ,yytext );
-
-}
 {especiales}    {
                     fprintf(archSal, "especiales ");
-                    // for (i = 0; i < 6; i++){
-                    //     if (strcmp(text, table[i]) == 0)
-                    //         fprintf(tokens, "(0,%d)", i);
-                    // }
+                    insertaColaStr(espQ,espQ->size ,yytext, 2, tokenQ );
+
                 }
+{identificador} {
+                    fprintf(archSal, "identificador "); 
+                    insertaColaStr(identQ,identQ->size ,yytext, 1, tokenQ );
+
+}
+
 {asignacion}    {
                     fprintf(archSal, "asignacion ");
                     //fprintf(tokens, "(0,0)");
@@ -305,7 +302,10 @@ comment         \$\$(.*)\$
                     //         fprintf(tokens, "(0,%d)", i);
                     // }
                 }
-{stringCte}     fprintf(archSal, "cadena");         aux(6, yytext); //c.push(yytext) inseta, return ix
+{stringCte}     {
+
+
+}
 {entero}        fprintf(archSal, "entero");         aux(7, yytext); //e.push(yytext) buscar, insertar, return ix
 {real}          fprintf(archSal, "real");           aux(8, yytext); //r.push(yytext)buscar, insertar, return ix
 {exp}           fprintf(archSal, "cientifico");     aux(8, yytext); // r.push(yytext) buscar, insertar, return ixreturn ix 
@@ -325,14 +325,22 @@ int main(int argc, char *argv[]) {
     tokens = fopen("tokens.txt","w");
     tokenQ = (intQueue*) malloc(sizeof(intQueue));
     identQ = (strQueue*) malloc(sizeof(strQueue));
-    initQueueInt(tokenQ);
-    initQueueStr(identQ);
+    strQ = (strQueue*) malloc(sizeof(strQueue));
+    floatQ = (strQueue*) malloc(sizeof(strQueue));
+    espQ = (strQueue*) malloc(sizeof(strQueue));
 
+    initQueueInt(tokenQ);
+
+    initQueueStr(identQ);
+    initQueueStr(espQ);
+    initQueueStr(strQ);
+    initQueueStr(floatQ);
     yylex();
     fclose(archSal);
 
     muestraTablaInt(tokenQ);
-
+    muestraTablaStr(identQ);
+    muestraTablaStr(espQ);
     return 0;
 }
 

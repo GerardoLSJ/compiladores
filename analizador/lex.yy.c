@@ -372,15 +372,15 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[94] =
     {   0,
         0,    0,   17,   15,   13,   12,   11,   15,   15,    6,
-        3,   15,    8,   15,   15,   15,   15,   15,   15,   15,
+        2,   15,    8,   15,   15,   15,   15,   15,   15,   15,
        15,   15,   15,   15,    0,    0,    9,    0,    0,    0,
         9,    8,    0,    4,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    1,    2,    2,    0,    7,    0,   14,
+        0,    0,    0,    1,    3,    3,    0,    7,    0,   14,
         9,    0,    0,    0,    0,    9,    0,   10,    1,    0,
-        0,    0,    0,    0,    0,    0,    0,    2,    0,    0,
-        5,    0,    0,    0,    0,    0,    2,    0,    0,    0,
-        0,    0,    2,    0,    0,    2,    0,    0,    2,    0,
-        2,    0,    0
+        0,    0,    0,    0,    0,    0,    0,    3,    0,    0,
+        5,    0,    0,    0,    0,    0,    3,    0,    0,    0,
+        0,    0,    3,    0,    0,    3,    0,    0,    3,    0,
+        3,    0,    0
 
     } ;
 
@@ -646,23 +646,27 @@ FILE *stringTable;
 FILE *identTable;
 intQueue * tokenQ;
 strQueue * identQ;
+strQueue * strQ;
+strQueue * floatQ;
+strQueue * espQ;
 
 /* ------------------------- Funciones ------------------------- */
 
 	// Funciones de tipo Caracter
-	void insertaColaStr(strQueue *q, int index, char *valor) {
-        printf("insertaColaStr \n");
-        if(busquedaStr(q,valor) != -1){
-            printf("YA ESTA EN COLA ESTE STR \n");
+	void insertaColaStr(strQueue *q, int pos, char *valor, int clase, intQueue *t ) {
+        int index = busquedaStr(q,valor);
+        if(index != -1){
+            printf("DUPE: valor '%s' clase %d , idx %d   \n", valor,clase,index);
+            // insertaColaNum(t, 6, 122);
+
             return;
         }
-        printf("AFTER insertaColaStr \n");
 
 		Cadena * item = (Cadena*)malloc(sizeof(Cadena));
         
         item->cadena = (char*)malloc(sizeof(char)*strlen(valor));
         strcpy(item->cadena, valor);
-		item->posicion = index;
+		item->posicion = pos;
 
 		if (q->head == NULL) { // Primer elemento en la cola
 			
@@ -764,9 +768,9 @@ strQueue * identQ;
         return -1;
     }
 
-    void muestraTablaStr(strQueue *q, char *tablaN) {
-		printf("\n -- -- -- -- -- %s -- -- -- -- -- \n", tablaN);
-		printf("\n Clase\t\tValor \n");
+    void muestraTablaStr(strQueue *q) {
+		printf("\n -- -- -- -- -- -- -- -- -- -- \n");
+		printf("\n Indice\t\tValor \n");
 
 		Cadena * pointer = (Cadena*)malloc(sizeof(Cadena));
 		pointer = q->head;
@@ -841,7 +845,7 @@ char *ARITMETICOS[] = {"+","-","*","/","%"};
 
 
 /* Definiciones */
-#line 845 "lex.yy.c"
+#line 849 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1023,9 +1027,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 261 "main.l"
+#line 265 "main.l"
 
-#line 1029 "lex.yy.c"
+#line 1033 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -1110,48 +1114,40 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 262 "main.l"
+#line 266 "main.l"
 {
                     fprintf(archSal, "reservadas ");
                     int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
-                    printf("Length of array: %d\n", len );
-
-                     for (int i = 0; i < len; i++){
-                         //
+                    for (int i = 0; i < len; i++){
                          if (strcmp(yytext, RESERVADAS[i]) == 0){
                              insertaColaNum(tokenQ, 0, i);
                              fprintf(tokens, "(0,%d)\n", i);
-
-
                          }
                      }
                 }
 	YY_BREAK
 case 2:
-/* rule 2 can match eol */
 YY_RULE_SETUP
-#line 277 "main.l"
+#line 276 "main.l"
 {
-    fprintf(archSal, "identificador "); 
-    printf("%d \n",identQ->size);
-    insertaColaStr(identQ,identQ->size ,yytext );
+                    fprintf(archSal, "especiales ");
+                    insertaColaStr(espQ,espQ->size ,yytext, 2, tokenQ );
+
+                }
+	YY_BREAK
+case 3:
+/* rule 3 can match eol */
+YY_RULE_SETUP
+#line 281 "main.l"
+{
+                    fprintf(archSal, "identificador "); 
+                    insertaColaStr(identQ,identQ->size ,yytext, 1, tokenQ );
 
 }
 	YY_BREAK
-case 3:
-YY_RULE_SETUP
-#line 283 "main.l"
-{
-                    fprintf(archSal, "especiales ");
-                    // for (i = 0; i < 6; i++){
-                    //     if (strcmp(text, table[i]) == 0)
-                    //         fprintf(tokens, "(0,%d)", i);
-                    // }
-                }
-	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 290 "main.l"
+#line 287 "main.l"
 {
                     fprintf(archSal, "asignacion ");
                     //fprintf(tokens, "(0,0)");
@@ -1159,7 +1155,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 294 "main.l"
+#line 291 "main.l"
 {
                     fprintf(archSal, "relacionales");
                     // for (i = 0; i < 6; i++){
@@ -1170,7 +1166,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 301 "main.l"
+#line 298 "main.l"
 {
                     fprintf(archSal, "aritmeticos");
                     // for (i = 0; i < 5; i++){
@@ -1181,8 +1177,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 308 "main.l"
-fprintf(archSal, "cadena");         aux(6, yytext); //c.push(yytext) inseta, return ix
+#line 305 "main.l"
+{
+
+
+}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
@@ -1230,7 +1229,7 @@ YY_RULE_SETUP
 #line 319 "main.l"
 ECHO;
 	YY_BREAK
-#line 1234 "lex.yy.c"
+#line 1233 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2238,14 +2237,22 @@ int main(int argc, char *argv[]) {
     tokens = fopen("tokens.txt","w");
     tokenQ = (intQueue*) malloc(sizeof(intQueue));
     identQ = (strQueue*) malloc(sizeof(strQueue));
-    initQueueInt(tokenQ);
-    initQueueStr(identQ);
+    strQ = (strQueue*) malloc(sizeof(strQueue));
+    floatQ = (strQueue*) malloc(sizeof(strQueue));
+    espQ = (strQueue*) malloc(sizeof(strQueue));
 
+    initQueueInt(tokenQ);
+
+    initQueueStr(identQ);
+    initQueueStr(espQ);
+    initQueueStr(strQ);
+    initQueueStr(floatQ);
     yylex();
     fclose(archSal);
 
     muestraTablaInt(tokenQ);
-
+    muestraTablaStr(identQ);
+    muestraTablaStr(espQ);
     return 0;
 }
 
