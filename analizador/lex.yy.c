@@ -369,19 +369,17 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[94] =
+static yyconst flex_int16_t yy_accept[85] =
     {   0,
-        0,    0,   17,   15,   13,   12,   11,   15,   15,    6,
-        2,   15,    8,   15,   15,   15,   15,   15,   15,   15,
-       15,   15,   15,   15,    0,    0,    9,    0,    0,    0,
-        9,    8,    0,    4,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    1,    3,    3,    0,    7,    0,   14,
-        9,    0,    0,    0,    0,    9,    0,   10,    1,    0,
-        0,    0,    0,    0,    0,    0,    0,    3,    0,    0,
-        5,    0,    0,    0,    0,    0,    3,    0,    0,    0,
-        0,    0,    3,    0,    0,    3,    0,    0,    3,    0,
-        3,    0,    0
-
+        0,    0,   17,   15,   14,   13,   12,   15,   15,    7,
+        3,   15,    9,   15,   15,   15,   15,   15,   15,   15,
+       15,   15,   15,    4,    0,    1,   10,    0,    0,    0,
+       10,    9,    0,    5,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    2,    4,    8,    1,   10,    0,    0,
+        0,    0,   10,    0,   11,    2,    0,    0,    0,    0,
+        0,    0,    0,    0,    4,    0,    6,    0,    0,    0,
+        0,    0,    4,    0,    0,    0,    0,    4,    0,    4,
+        0,    4,    4,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -397,9 +395,9 @@ static yyconst flex_int32_t yy_ec[256] =
        20,   33,   34,   20,   20,   20,   20,   20,   35,   20,
        36,    1,   37,    1,    1,    1,   38,   39,   39,   40,
 
-       41,   39,   42,   39,   43,   39,   39,   44,   39,   45,
-       46,   39,   39,   47,   48,   49,   50,   39,   42,   39,
-       39,   51,   52,    1,   52,    1,    1,    1,    1,    1,
+       41,   39,   39,   39,   42,   39,   39,   43,   39,   44,
+       45,   39,   39,   46,   47,   48,   49,   39,   39,   39,
+       39,   50,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -416,174 +414,95 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst flex_int32_t yy_meta[53] =
+static yyconst flex_int32_t yy_meta[51] =
     {   0,
         1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    3,
-        3,    3,    3,    3,    3,    1,    1,    1,    3,    1,
-        1,    3
+        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
+        3,    3,    3,    3,    3,    1,    1,    3,    3,    3,
+        3,    3,    3,    3,    3,    3,    3,    3,    3,    3
     } ;
 
-static yyconst flex_int16_t yy_base[97] =
+static yyconst flex_int16_t yy_base[94] =
     {   0,
-        0,    0,  502,  503,  503,  503,  503,    0,  492,  503,
-      503,   37,   40,  476,  187,   19,  191,  197,  196,  190,
-      194,  190,  187,   81,  224,  222,   39,  199,  200,   35,
-      117,  120,   58,  503,  181,  184,  182,  173,  176,  168,
-      177,  170,  178,  170,  503,  161,    0,  209,  153,  151,
-      119,  131,  126,   44,   45,  197,  138,  137,  503,  111,
-      104,  109,  101,  103,  109,  102,   99,  238,    0,  128,
-      503,   95,   90,   91,   91,   30,  289,    0,   40,   31,
-       30,   28,  340,    0,   30,  391,    0,   13,  442,    0,
-        0,    0,  503,  493,  496,  499
+        0,    0,  145,  146,  146,  146,  146,    0,  138,  146,
+      146,   35,   38,  124,   93,   15,   97,  102,  101,   96,
+       99,   95,   93,    0,  129,    0,   40,  105,  106,   24,
+       44,   53,   59,  146,   88,   90,   88,   80,   84,   76,
+       84,   78,   85,   78,    0,  116,    0,   50,   95,   90,
+       59,   62,   62,  102,  101,  146,   75,   69,   73,   66,
+       68,   73,   67,   63,    0,   91,  146,   58,   53,   54,
+       54,   50,    0,   59,   51,   50,   47,    0,   54,    0,
+       42,    0,  146,  146,  103,   85,  106,   81,   80,   79,
+       77,   68,   58
 
     } ;
 
-static yyconst flex_int16_t yy_def[97] =
+static yyconst flex_int16_t yy_def[94] =
     {   0,
-       93,    1,   93,   93,   93,   93,   93,   94,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   94,   95,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   46,   94,   95,   95,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   68,   93,
-       93,   93,   93,   93,   93,   93,   93,   77,   93,   93,
-       93,   93,   93,   83,   93,   93,   86,   93,   93,   89,
-       96,   96,    0,   93,   93,   93
+       84,    1,   84,   84,   84,   84,   84,   85,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   86,   85,   87,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   88,   85,   87,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   89,   84,   84,   84,   84,   84,
+       84,   84,   90,   84,   84,   84,   84,   91,   84,   92,
+       84,   93,   84,    0,   84,   84,   84,   84,   84,   84,
+       84,   84,   84
 
     } ;
 
-static yyconst flex_int16_t yy_nxt[556] =
+static yyconst flex_int16_t yy_nxt[197] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   11,   10,
        10,   11,   10,   12,   10,   13,   14,   11,    4,    4,
        15,   16,    4,   17,   18,    4,   19,    4,    4,   20,
         4,   21,   22,   23,    4,   11,   11,   24,   24,   24,
        24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
-       24,    4,   27,   31,   51,   32,   36,   71,   71,   28,
-       59,   37,   33,   33,   29,   54,   30,   88,   57,   55,
-       57,   70,   70,   58,   85,   59,   59,   59,   82,   33,
-       33,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   45,
+       27,   31,   36,   32,   51,   48,   37,   28,   52,   53,
+       83,   33,   29,   33,   30,   48,   31,   33,   32,   54,
+       82,   54,   67,   33,   55,   67,   33,   53,   33,   80,
+       33,   78,   73,   65,   33,   33,   66,   45,   56,   66,
+       33,   81,   79,   33,   56,   56,   56,   77,   56,   76,
 
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46,   46,   46,   45,   45,   46,   46,
-       47,   47,   47,   47,   47,   47,   46,   46,   46,   47,
-       46,   46,   56,   31,   51,   32,   59,   81,   80,   79,
-       33,   71,   33,   33,   59,   59,   59,   76,   75,   74,
-       73,   72,   58,   58,   70,   70,   50,   33,   50,   33,
-       33,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   45,   45,   68,   68,
+       75,   74,   33,   25,   67,   25,   47,   56,   47,   56,
+       56,   72,   71,   70,   69,   68,   55,   55,   66,   66,
+       46,   64,   63,   62,   61,   56,   60,   59,   58,   57,
+       56,   50,   49,   46,   44,   43,   42,   41,   40,   39,
+       38,   35,   34,   26,   84,    3,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84
 
-       69,   69,   69,   69,   69,   69,   68,   68,   68,   69,
-       68,   68,   56,   48,   67,   66,   65,   64,   59,   63,
-       33,   62,   61,   60,   59,   53,   52,   50,   48,   44,
-       43,   42,   41,   40,   39,   38,   35,   33,   45,   45,
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-       45,   45,   45,   45,   45,   45,   45,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   45,   45,   77,   77,   78,   78,   78,
-       78,   78,   78,   77,   77,   77,   78,   77,   77,   45,
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-
-       45,   45,   45,   45,   45,   45,   45,   45,   83,   83,
-       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
-       83,   83,   83,   83,   45,   45,   83,   83,   84,   84,
-       84,   84,   84,   84,   83,   83,   83,   84,   83,   83,
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   86,
-       86,   86,   86,   86,   86,   86,   86,   86,   86,   86,
-       86,   86,   86,   86,   86,   45,   45,   86,   86,   87,
-       87,   87,   87,   87,   87,   86,   86,   86,   87,   86,
-       86,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   45,   45,   89,   89,
-       90,   90,   90,   90,   90,   90,   89,   89,   89,   90,
-       89,   89,   45,   45,   45,   45,   45,   45,   45,   45,
-       45,   45,   45,   45,   45,   45,   45,   45,   45,   45,
-       45,   91,   91,   91,   91,   91,   91,   91,   91,   91,
-       91,   91,   91,   91,   91,   91,   91,   45,   45,   91,
-       91,   92,   92,   92,   92,   92,   92,   91,   91,   91,
-       92,   91,   91,   25,   34,   25,   49,   26,   49,   45,
-
-       45,   93,    3,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93
     } ;
 
-static yyconst flex_int16_t yy_chk[556] =
+static yyconst flex_int16_t yy_chk[197] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,   12,   13,   27,   13,   16,   54,   55,   12,
-       88,   16,   27,   13,   12,   30,   12,   85,   33,   30,
-       33,   54,   55,   33,   82,   81,   80,   79,   76,   27,
-       13,   24,   24,   24,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+       12,   13,   16,   13,   30,   27,   16,   12,   30,   31,
+       93,   13,   12,   27,   12,   48,   32,   31,   32,   33,
+       92,   33,   51,   48,   33,   52,   32,   53,   13,   91,
+       27,   90,   89,   88,   31,   53,   51,   86,   81,   52,
+       48,   79,   77,   32,   76,   75,   74,   72,   71,   70,
 
-       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
-       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
-       24,   24,   31,   32,   51,   32,   75,   74,   73,   72,
-       31,   70,   51,   32,   67,   66,   65,   64,   63,   62,
-       61,   60,   58,   57,   53,   52,   50,   31,   49,   51,
-       32,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
+       69,   68,   53,   85,   66,   85,   87,   64,   87,   63,
+       62,   61,   60,   59,   58,   57,   55,   54,   50,   49,
+       46,   44,   43,   42,   41,   40,   39,   38,   37,   36,
+       35,   29,   28,   25,   23,   22,   21,   20,   19,   18,
+       17,   15,   14,    9,    3,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84,   84,   84,   84,   84,
+       84,   84,   84,   84,   84,   84
 
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   56,   48,   44,   43,   42,   41,   40,   39,
-       56,   38,   37,   36,   35,   29,   28,   26,   25,   23,
-       22,   21,   20,   19,   18,   17,   15,   56,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       77,   77,   77,   77,   77,   77,   77,   77,   77,   77,
-       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
-       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
-       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
-       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
-       83,   83,   83,   83,   83,   83,   83,   83,   83,   83,
-       83,   86,   86,   86,   86,   86,   86,   86,   86,   86,
-
-       86,   86,   86,   86,   86,   86,   86,   86,   86,   86,
-       86,   86,   86,   86,   86,   86,   86,   86,   86,   86,
-       86,   86,   86,   86,   86,   86,   86,   86,   86,   86,
-       86,   86,   86,   86,   86,   86,   86,   86,   86,   86,
-       86,   86,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   94,   14,   94,   95,    9,   95,   96,
-
-       96,    3,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93,   93,   93,   93,   93,   93,
-       93,   93,   93,   93,   93
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -602,12 +521,15 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "main.l"
 #line 2 "main.l"
-/* Autor: Lopez Santibañez Jimenez Luis Gerardo
-   Programa en LEX  que ...
+/*  Autor: López Santibáñez Jiménez Luis Gerardo
+           Robles Uribe Karen Abril
 
+    Compiladores, grupo 2
+    
+    Analizador léxico creado con ANSI C y lex.
 */     
 #include <string.h>
-
+#include <stdlib.h>
 
 /* ------------------------- Estructuras ------------------------- */
 typedef struct Cadena{
@@ -640,189 +562,164 @@ typedef struct strQueue{
     int size;
 }strQueue;
 
+/* ------------------------- Funciones ------------------------- */
+// Funciones de tipo Caracter
+int busquedaStr(strQueue *q, char *str) {
+    Cadena *pointer = (Cadena*) malloc(sizeof(Cadena));
+    pointer = q->head;
+
+    while( pointer != NULL) {
+        if (!strcmp(pointer->cadena, str))
+            return pointer->posicion;
+        pointer = pointer->next;
+    }
+
+    return -1;
+}
+
+int insertaColaStr(strQueue *q, int pos, char *valor, int clase ) {
+
+    int index = busquedaStr(q, valor);
+    if(index != -1)
+        return index;
+
+    Cadena * item = (Cadena*)malloc(sizeof(Cadena));
+    
+    item->cadena = (char*)malloc(sizeof(char)*strlen(valor));
+    strcpy(item->cadena, valor);
+    item->posicion = pos;
+
+    if (q->head == NULL) { // Primer elemento en la cola
+        
+        item->next  = NULL;
+        item->prev = NULL;
+        q->head = item;
+        q->tail = item;
+
+        q->size += 1;
+        return q->size - 1;
+    }
+
+    // Si ya existen elementos
+    item->next  = NULL;
+    item->prev = q->tail;
+    q->tail->next = item;
+    q->tail = item;
+
+    q->size += 1;
+    
+    return q->size-1;
+}
+
+void muestraTablaStr(strQueue *q , char *nombre) {
+    printf("\n  -- -- -- -- -- %s -- -- -- -- -- \n", nombre);
+    printf("\n\t Indice\t\tValor \n");
+
+    Cadena * pointer = (Cadena*)malloc(sizeof(Cadena));
+    pointer = q->head;
+
+    while(pointer != NULL) {
+        printf("\n\t %d\t\t%s", pointer->posicion, pointer->cadena);
+        pointer = pointer->next;
+    }
+
+    printf("\n  \n");
+    return;
+}
+
+//Funciones de tipo Numericas
+void insertaColaNum(intQueue *q, int clase, int valor) {
+    Numero * item = (Numero*)malloc(sizeof(Numero));
+    
+    item->valor = valor;
+    item->clase = clase;
+
+    if (q->head == NULL) { // Primer elemento en la cola
+        item->next  = NULL;
+        item->prev = NULL;
+        q->head = item;
+        q->tail = item;
+
+        q->size += 1;
+        return;
+    }
+
+    // Si ya existen elementos
+    item->next  = NULL;
+    item->prev = q->tail;
+    q->tail->next = item;
+    q->tail = item;
+
+    q->size += 1;
+    return;
+}
+
+int busquedaInt(intQueue *q, int valor) {
+    Numero *pointer = (Numero*)malloc(sizeof(Numero));
+    pointer = q->head;
+
+    while(pointer != NULL) {
+        if(valor == pointer->valor)
+            return pointer->clase;
+
+        pointer = pointer->next;
+    }
+    return -1;
+}
+
+void muestraTablaInt(intQueue *q) {
+    printf("\n  -- -- -- -- -- Tokens -- -- -- -- -- -- -- \n");
+    printf("\n\t Clase\t\tValor \n");
+
+    Numero * pointer = (Numero*)malloc(sizeof(Numero));
+
+    pointer = q->head;
+
+    while(pointer != NULL) {
+        printf("\n\t %d\t\t%d", pointer->clase, pointer->valor);
+        pointer = pointer->next;
+    }
+
+    printf("\n \n");
+    return;
+}
+
+//Funciones Generales (Inicializacion)
+void initQueueInt(intQueue *q) {
+    q->head = NULL;
+    q->tail = NULL;
+    q->size = 0;
+
+    return;
+}
+
+void initQueueStr(strQueue *q) {
+    q->head = NULL;
+    q->tail = NULL;
+    q->size = 0;
+
+    return;
+}
+
+/* ------------------------ Declaración de variables -------------------------- */
+
 FILE *archSal;
+FILE *archErr;
 FILE *tokens;
-FILE *stringTable;
-FILE *identTable;
+
 intQueue * tokenQ;
 strQueue * identQ;
 strQueue * strQ;
 strQueue * floatQ;
+strQueue * entQ;
 strQueue * espQ;
 
-/* ------------------------- Funciones ------------------------- */
+int lineCount = 1;
 
-	// Funciones de tipo Caracter
-	int insertaColaStr(strQueue *q, int pos, char *valor, int clase ) {
-        int index = busquedaStr(q,valor);
-        if(index != -1){
-            printf("DUPE: valor '%s' clase %d , idx %d   \n", valor,clase,index);
-            // insertaColaNum(t, 6, 122);
-
-            return index;
-        }
-
-		Cadena * item = (Cadena*)malloc(sizeof(Cadena));
-        
-        item->cadena = (char*)malloc(sizeof(char)*strlen(valor));
-        strcpy(item->cadena, valor);
-		item->posicion = pos;
-
-		if (q->head == NULL) { // Primer elemento en la cola
-			
-            item->next  = NULL;
-			item->prev = NULL;
-			q->head = item;
-			q->tail = item;
-
-			q->size += 1;
-			return q->size;
-		}
-
-		// Si ya existen elementos
-	    item->next  = NULL;
-		item->prev = q->tail;
-		q->tail->next = item;
-		q->tail = item;
-
-		q->size += 1;
-		
-		return q->size;
-	}
-    int busquedaStr(strQueue *q, char *str) {
-        Cadena *pointer = (Cadena*) malloc(sizeof(Cadena));
-        pointer = q->head;
-        while( pointer != NULL) {
-			if (!strcmp(pointer->cadena, str))
-				return pointer->posicion;
-			pointer = pointer->next;
-		}
-        return -1;
-    }
-    // void busquedaItem(Queue *q, char *valor) {
-    //     Cadena *pointer = (Cadena*)malloc(sizeof(Cadena));
-    //     pointer = q->head;
-
-	// 	while(pointer != NULL) {
-	// 		if(strcmp(valor, pointer->valor) == 0)
-    //             return cursor->posicion;
-
-	// 		pointer = pointer->next;
-	// 	}
-    //     return -1;
-    // }
-
-	// void muestraTabla(Queue *q, char *tablaN) {
-	// 	printf("\n -- -- -- -- -- %s -- -- -- -- -- \n", tablaN);
-	// 	printf("\n Posicion\t\tValor \n");
-
-	// 	Cadena * pointer = (Cadena*)malloc(sizeof(Cadena));
-	// 	pointer = q->head;
-
-	// 	while(pointer != NULL) {
-	// 		printf("\n %d\t\t%s", pointer->posicion, pointer->valor);
-	// 		pointer = pointer->next;
-	// 	}
-
-	// 	printf("\n -------------------------------- \n");
-	// 	return;
-	// }
-
-    //Funciones de tipo Numericas
-    void insertaColaNum(intQueue *q, int clase, int valor) {
-		Numero * item = (Numero*)malloc(sizeof(Numero));
-        
-		item->valor = valor;
-        item->clase = clase;
-
-		if (q->head == NULL) { // Primer elemento en la cola
-            item->next  = NULL;
-			item->prev = NULL;
-			q->head = item;
-			q->tail = item;
-
-			q->size += 1;
-			return;
-		}
-
-		// Si ya existen elementos
-	    item->next  = NULL;
-		item->prev = q->tail;
-		q->tail->next = item;
-		q->tail = item;
-
-		q->size += 1;
-		return;
-	}
-
-    int busquedaInt(intQueue *q, int valor) {
-        Numero *pointer = (Numero*)malloc(sizeof(Numero));
-        pointer = q->head;
-
-		while(pointer != NULL) {
-			if(valor == pointer->valor)
-                return pointer->clase;
-
-			pointer = pointer->next;
-		}
-        return -1;
-    }
-
-    void muestraTablaStr(strQueue *q) {
-		printf("\n -- -- -- -- -- -- -- -- -- -- \n");
-		printf("\n Indice\t\tValor \n");
-
-		Cadena * pointer = (Cadena*)malloc(sizeof(Cadena));
-		pointer = q->head;
-
-		while(pointer != NULL) {
-			printf("\n %d\t\t%s", pointer->posicion, pointer->cadena);
-			pointer = pointer->next;
-		}
-
-		printf("\n -------------------------------- \n");
-		return;
-	}
-    void muestraTablaInt(intQueue *q) {
-		printf("\n -- -- -- -- -- -- -- -- -- -- \n");
-		printf("\n Clase\t\tValor \n");
-
-		Numero * pointer = (Numero*)malloc(sizeof(Numero));
-		pointer = q->head;
-
-		while(pointer != NULL) {
-			printf("\n %d\t\t%d", pointer->clase, pointer->valor);
-			pointer = pointer->next;
-		}
-
-		printf("\n -------------------------------- \n");
-		return;
-	}
-
-    //Funciones Generales
-	void initQueueInt(intQueue *q) {
-		q->head = NULL;
-		q->tail = NULL;
-		q->size = 0;
-		return;
-	}
-    void initQueueStr(strQueue *q) {
-		q->head = NULL;
-		q->tail = NULL;
-		q->size = 0;
-		return;
-	}
-
-/* -------------------------------------------------------------- */
-
-
-/* Definimos nuestras expresiones regulares para detectar ++,-- y spaces */
-void aux(int class, char *text);
-int lineCount = 0;
-
+// Declaramos las tablas estáticas a usar
 char *RESERVADAS[] = {
     "Bul", "Cadena", "Cierto", "Entero", "Falso", "Haz","Mientras", "Para", "Real", "Si", "Sino"
-    };
+};
 
 char *ESPECIALES[] = {
     "(",
@@ -833,19 +730,18 @@ char *ESPECIALES[] = {
     "]"
 };
 
-char *ASIGNACION[] = {":="};
+char *ASIGNACION[] = { ":=" };
 
 char *RELACIONALES[] = {
     ".DIF.",".IGL.",
     ".MN.", ".MNI.",
     ".MY.", ".MYI."
-    };
+};
     
 char *ARITMETICOS[] = {"+","-","*","/","%"};
 
-
-/* Definiciones */
-#line 849 "lex.yy.c"
+/* Definiciones de expresiones en lex */
+#line 745 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1027,9 +923,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 265 "main.l"
+#line 245 "main.l"
 
-#line 1033 "lex.yy.c"
+#line 929 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -1082,13 +978,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 94 )
+				if ( yy_current_state >= 85 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 503 );
+		while ( yy_base[yy_current_state] != 146 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -1114,7 +1010,13 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 266 "main.l"
+#line 246 "main.l"
+{
+                }
+	YY_BREAK
+case 2:
+YY_RULE_SETUP
+#line 248 "main.l"
 {
                     fprintf(archSal, "reservadas ");
                     int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
@@ -1126,117 +1028,130 @@ YY_RULE_SETUP
                      }
                 }
 	YY_BREAK
-case 2:
+case 3:
 YY_RULE_SETUP
-#line 276 "main.l"
+#line 258 "main.l"
 {
                     fprintf(archSal, "especiales ");
-                    int idx = insertaColaStr(espQ,espQ->size ,yytext, 2 );
+                    int idx = insertaColaStr(espQ, espQ->size, yytext, 2);
                     insertaColaNum(tokenQ, 2, idx);
-
+                    fprintf(tokens, "(2,%s)\n", yytext);
                 }
-	YY_BREAK
-case 3:
-/* rule 3 can match eol */
-YY_RULE_SETUP
-#line 282 "main.l"
-{
-                    fprintf(archSal, "identificador "); 
-                    int idx = insertaColaStr(identQ,identQ->size ,yytext, 1 );
-                    insertaColaNum(tokenQ, 1, idx);
-}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 288 "main.l"
+#line 264 "main.l"
 {
-                    fprintf(archSal, "asignacion ");
-                    insertaColaNum(tokenQ, 3, 0);
-                    //fprintf(tokens, "(0,0)");
+                    fprintf(archSal, "identificador "); 
+                    int idx = insertaColaStr(identQ, identQ->size, yytext, 1);
+                    insertaColaNum(tokenQ, 1, idx);
+                    fprintf(tokens, "(1,%d)\n", idx);
                 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 293 "main.l"
+#line 270 "main.l"
 {
-                    fprintf(archSal, "relacionales");
-                    int len = sizeof(RELACIONALES) / sizeof(RELACIONALES[0]);
-                    for (int i = 0; i < len; i++){
-                         if (strcmp(yytext, RELACIONALES[i]) == 0){
-                             insertaColaNum(tokenQ, 4, i);
-                         }
-                     }
+                    fprintf(archSal, "asignacion ");
+                    insertaColaNum(tokenQ, 3, 0);
+                    fprintf(tokens, "(3,=)\n");
                 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 302 "main.l"
+#line 275 "main.l"
 {
-                    printf("---aritmeticos---");
-                    int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
+                    fprintf(archSal, "relacionales");
+                    int len = sizeof(RELACIONALES) / sizeof(RELACIONALES[0]);
                     for (int i = 0; i < len; i++){
-                         if (strcmp(yytext, ARITMETICOS[i]) == 0){
-                             insertaColaNum(tokenQ, 5, i);
-                         }
-                     }
+
+                        if (strcmp(yytext, RELACIONALES[i]) == 0){
+                            insertaColaNum(tokenQ, 4, i);
+                            fprintf(tokens, "(4,%d)\n", i);
+                        }
+                             
+                    }
                 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 311 "main.l"
+#line 287 "main.l"
 {
-                        printf("---stringCte---");
-
-
-}
+                    int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
+                    for (int i = 0; i < len; i++){
+                        if (strcmp(yytext, ARITMETICOS[i]) == 0){
+                             insertaColaNum(tokenQ, 5, i);
+                             fprintf(tokens, "(5,%s)\n", yytext);
+                        }
+                    }
+                }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 316 "main.l"
-fprintf(archSal, "entero");         aux(7, yytext); //e.push(yytext) buscar, insertar, return ix
+#line 296 "main.l"
+{
+                    int idx = insertaColaStr(strQ, strQ->size, yytext, 6);
+                    insertaColaNum(tokenQ, 6, idx);
+                    fprintf(tokens, "(6,%s)\n", yytext);
+                }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 317 "main.l"
-fprintf(archSal, "real");           aux(8, yytext); //r.push(yytext)buscar, insertar, return ix
+#line 301 "main.l"
+{           
+                    fprintf(archSal, "entero "); 
+                    int idx = insertaColaStr(entQ, entQ->size, yytext, 8);
+                    insertaColaNum(tokenQ, 7, idx);
+                    fprintf(tokens, "(7,%s)\n", yytext);
+                }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 318 "main.l"
-fprintf(archSal, "cientifico");     aux(8, yytext); // r.push(yytext) buscar, insertar, return ixreturn ix 
+#line 307 "main.l"
+{         
+                    fprintf(archSal, "real "); 
+                    int idx = insertaColaStr(floatQ, floatQ->size, yytext, 8);
+                    insertaColaNum(tokenQ, 8, idx);
+                    fprintf(tokens, "(8,%s)\n", yytext);
+                }
 	YY_BREAK
 case 11:
+YY_RULE_SETUP
+#line 313 "main.l"
+{       
+                    fprintf(archSal, "cientifico "); 
+                    int idx = insertaColaStr(floatQ, floatQ->size, yytext, 7);
+                    insertaColaNum(tokenQ, 8, idx);
+                    fprintf(tokens, "(8,%s)\n", yytext);
+                }
+	YY_BREAK
+case 12:
 YY_RULE_SETUP
 #line 319 "main.l"
 fprintf(archSal, " "); 
 	YY_BREAK
-case 12:
-/* rule 12 can match eol */
+case 13:
+/* rule 13 can match eol */
 YY_RULE_SETUP
 #line 320 "main.l"
 fprintf(archSal, "\n"); lineCount++;
 	YY_BREAK
-case 13:
-YY_RULE_SETUP
-#line 321 "main.l"
-fprintf(archSal, "\t"); 
-	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 322 "main.l"
-fprintf(archSal, " "); 
+#line 321 "main.l"
+fprintf(archSal, "\t");  
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 323 "main.l"
-fprintf(archSal, "error lineCount %d {%s}", lineCount, yytext); //handleErr(yytext);
+#line 322 "main.l"
+fprintf(archErr, "error lineCount %d {%s} \n", lineCount, yytext); //handleErr(yytext);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 326 "main.l"
+#line 323 "main.l"
 ECHO;
 	YY_BREAK
-#line 1240 "lex.yy.c"
+#line 1155 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1528,7 +1443,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 94 )
+			if ( yy_current_state >= 85 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1556,11 +1471,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 94 )
+		if ( yy_current_state >= 85 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 93);
+	yy_is_jam = (yy_current_state == 84);
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2233,38 +2148,41 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 326 "main.l"
+#line 323 "main.l"
 
 
 
 int main(int argc, char *argv[]) {
 
-    yyin = fopen(argv[1],"r");
-    archSal = fopen("salida.txt","w");
-    tokens = fopen("tokens.txt","w");
     tokenQ = (intQueue*) malloc(sizeof(intQueue));
     identQ = (strQueue*) malloc(sizeof(strQueue));
     strQ = (strQueue*) malloc(sizeof(strQueue));
     floatQ = (strQueue*) malloc(sizeof(strQueue));
     espQ = (strQueue*) malloc(sizeof(strQueue));
+    entQ = (strQueue*) malloc(sizeof(strQueue));
+
+    yyin = fopen(argv[1],"r");
+    archSal = fopen("salida.txt","w");
+    archErr = fopen("errores.txt", "w");
+    tokens = fopen("tokens.txt","w");
+
 
     initQueueInt(tokenQ);
-
     initQueueStr(identQ);
     initQueueStr(espQ);
     initQueueStr(strQ);
     initQueueStr(floatQ);
+    initQueueStr(entQ);
+
     yylex();
     fclose(archSal);
 
     muestraTablaInt(tokenQ);
-    muestraTablaStr(identQ);
-    muestraTablaStr(espQ);
+    muestraTablaStr(identQ, "Identificadores");
+    muestraTablaStr(espQ, "Especiales");
+    muestraTablaStr(entQ, "Enteros");
+    muestraTablaStr(floatQ, "Reales");
+    muestraTablaStr(strQ, "Cadenas");
+
     return 0;
-}
-
-void aux(int type, char *text){
-
-    /* Buscar elemento en tabla y incrementar o pushear*/
-
 }

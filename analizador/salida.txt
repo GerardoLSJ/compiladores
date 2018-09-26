@@ -1,5 +1,12 @@
-reservadas  identificador asignacion   especiales 
-reservadas  identificador asignacion  enteroespeciales 
-reservadas  identificador asignacion  cientificoespeciales 
-identificador asignacion  cientificoespeciales 
-reservadas especiales  entero relacionales entero especiales especiales 
+especiales especiales especiales especiales especiales especiales 
+reservadas  identificador  asignacion  entero especiales 
+identificador   identificador especiales 
+identificador  entero especiales 
+identificador   entero especiales 
+identificador   entero especiales 
+identificador   entero especiales 
+reservadas  identificador  asignacion  cientifico especiales 
+identificador  identificador  asignacion  real especiales 
+reservadas  identificador  asignacion  identificador especiales 
+identificador  asignacion  especiales  
+identificador  asignacion  especiales  

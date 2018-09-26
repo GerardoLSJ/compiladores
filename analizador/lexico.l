@@ -101,7 +101,7 @@ void muestraTablaStr(strQueue *q , char *nombre) {
         pointer = pointer->next;
     }
 
-    printf("\n  \n");
+    printf("\n  -- -- -- -- -- -- -- -- -- -- -- -- -- \n");
     return;
 }
 
@@ -146,11 +146,10 @@ int busquedaInt(intQueue *q, int valor) {
 }
 
 void muestraTablaInt(intQueue *q) {
-    printf("\n  -- -- -- -- -- Tokens -- -- -- -- -- -- -- \n");
+    printf("\n  -- -- -- -- -- -- -- -- -- -- -- -- \n");
     printf("\n\t Clase\t\tValor \n");
 
     Numero * pointer = (Numero*)malloc(sizeof(Numero));
-
     pointer = q->head;
 
     while(pointer != NULL) {
@@ -158,7 +157,7 @@ void muestraTablaInt(intQueue *q) {
         pointer = pointer->next;
     }
 
-    printf("\n \n");
+    printf("\n  -- -- -- -- -- -- -- -- -- -- -- -- \n");
     return;
 }
 
@@ -192,7 +191,7 @@ strQueue * floatQ;
 strQueue * entQ;
 strQueue * espQ;
 
-int lineCount = 1;
+int lineCount = 0;
 
 // Declaramos las tablas estáticas a usar
 char *RESERVADAS[] = {
@@ -259,67 +258,55 @@ exp             ({real}|{entero})(e|E)(\+|-)?{entero}
                     fprintf(archSal, "especiales ");
                     int idx = insertaColaStr(espQ, espQ->size, yytext, 2);
                     insertaColaNum(tokenQ, 2, idx);
-                    fprintf(tokens, "(2,%s)\n", yytext);
                 }
 {identificador} {
                     fprintf(archSal, "identificador "); 
                     int idx = insertaColaStr(identQ, identQ->size, yytext, 1);
                     insertaColaNum(tokenQ, 1, idx);
-                    fprintf(tokens, "(1,%d)\n", idx);
                 }
 {asignacion}    {
                     fprintf(archSal, "asignacion ");
                     insertaColaNum(tokenQ, 3, 0);
-                    fprintf(tokens, "(3,=)\n");
                 }
 {relacionales}  {
                     fprintf(archSal, "relacionales");
                     int len = sizeof(RELACIONALES) / sizeof(RELACIONALES[0]);
                     for (int i = 0; i < len; i++){
 
-                        if (strcmp(yytext, RELACIONALES[i]) == 0){
-                            insertaColaNum(tokenQ, 4, i);
-                            fprintf(tokens, "(4,%d)\n", i);
-                        }
-                             
+                        if (strcmp(yytext, RELACIONALES[i]) == 0)
+                             insertaColaNum(tokenQ, 4, i);
                     }
                 }
 {aritmeticos}   {
                     int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
                     for (int i = 0; i < len; i++){
-                        if (strcmp(yytext, ARITMETICOS[i]) == 0){
+                        if (strcmp(yytext, ARITMETICOS[i]) == 0)
                              insertaColaNum(tokenQ, 5, i);
-                             fprintf(tokens, "(5,%s)\n", yytext);
-                        }
                     }
                 }
 {stringCte}     {
                     int idx = insertaColaStr(strQ, strQ->size, yytext, 6);
                     insertaColaNum(tokenQ, 6, idx);
-                    fprintf(tokens, "(6,%s)\n", yytext);
                 }
 {entero}        {           
                     fprintf(archSal, "entero "); 
                     int idx = insertaColaStr(entQ, entQ->size, yytext, 8);
                     insertaColaNum(tokenQ, 7, idx);
-                    fprintf(tokens, "(7,%s)\n", yytext);
                 }
 {real}          {         
                     fprintf(archSal, "real "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 8);
                     insertaColaNum(tokenQ, 8, idx);
-                    fprintf(tokens, "(8,%s)\n", yytext);
                 }
 {exp}           {       
-                    fprintf(archSal, "cientifico "); 
+                    fprintf(archSal, "centifico "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 7);
                     insertaColaNum(tokenQ, 8, idx);
-                    fprintf(tokens, "(8,%s)\n", yytext);
                 }
 {space}         fprintf(archSal, " "); 
 {newline}       fprintf(archSal, "\n"); lineCount++;
 {tab}           fprintf(archSal, "\t");  
-.               fprintf(archErr, "error lineCount %d {%s} \n", lineCount, yytext); //handleErr(yytext);
+.               fprintf(archErr, "error lineCount %d {%s}", lineCount, yytext); //handleErr(yytext);
 %%
 
 int main(int argc, char *argv[]) {
@@ -348,11 +335,11 @@ int main(int argc, char *argv[]) {
     fclose(archSal);
 
     muestraTablaInt(tokenQ);
-    muestraTablaStr(identQ, "Identificadores");
-    muestraTablaStr(espQ, "Especiales");
-    muestraTablaStr(entQ, "Enteros");
-    muestraTablaStr(floatQ, "Reales");
-    muestraTablaStr(strQ, "Cadenas");
+    muestraTablaStr(identQ, "idents");
+    muestraTablaStr(espQ, "espec");
+    muestraTablaStr(entQ, "enteros");
+    muestraTablaStr(floatQ, "floats");
+    muestraTablaStr(strQ, "strings");
 
     return 0;
 }
