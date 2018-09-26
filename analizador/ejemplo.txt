@@ -1,5 +1,12 @@
-Entero fibo := "hla prros" ;
+(),;[]
 Entero numero := 9;
-Entero exp := 5e2;
-exp := 5e3;
-Si( 5 .MN. 3 );
+numero + numero;
+numero -1;
+numero % 3;
+numero * 3;
+numero / 3;
+Real cient := 5e2;
+Ral f := 5.21;
+Cadena cad := "cadena;
+cad := "nuevo str"; $$b
+cad := "nuevo str"; $$Este es un comentario...
