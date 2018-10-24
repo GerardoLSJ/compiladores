@@ -321,6 +321,36 @@ void muestraTablaAtomo(atomQueue *q , char *nombre) {
 }
 
 
+char getCharFromQ(){
+    if(syntaxQ->head != NULL){
+        char c = syntaxQ->head->caracter;
+        if(syntaxQ->head->next != NULL){
+            syntaxQ->head = syntaxQ->head->next;
+        }else{
+            syntaxQ->head = NULL;
+        }
+        return c;
+    }else{
+        printf(" \n\n :: FINISH SINTAX CHECK :: \n\n");
+        return '0';
+    }
+}
+
+//-- Funciones de cada NT para el analizador sintáctico
+void error(){
+    printf("error");
+}
+void test(){
+    char c = getCharFromQ();
+    while(c != '0'){
+        printf("%c",c);
+        c = getCharFromQ();    
+    }
+}
+void analisisSintactico(){
+    printf(":: call INICIO DE FUNCIONES :: \n\n");
+    test();
+}
 %}
 
 /* Definiciones de expresiones en lex */
@@ -463,6 +493,8 @@ int main(int argc, char *argv[]) {
     // muestraTablaStr(floatQ, "floats");
     // muestraTablaStr(strQ, "strings");
     muestraTablaAtomo(syntaxQ, "Syntax");
+
+    analisisSintactico();
 
     return 0;
 }

@@ -858,8 +858,38 @@ void muestraTablaAtomo(atomQueue *q , char *nombre) {
 }
 
 
+char getCharFromQ(){
+    if(syntaxQ->head != NULL){
+        char c = syntaxQ->head->caracter;
+        if(syntaxQ->head->next != NULL){
+            syntaxQ->head = syntaxQ->head->next;
+        }else{
+            syntaxQ->head = NULL;
+        }
+        return c;
+    }else{
+        printf(" \n\n :: FINISH SINTAX CHECK :: \n\n");
+        return '0';
+    }
+}
+
+//-- Funciones de cada NT para el analizador sintáctico
+void error(){
+    printf("error");
+}
+void test(){
+    char c = getCharFromQ();
+    while(c != '0'){
+        printf("%c",c);
+        c = getCharFromQ();    
+    }
+}
+void analisisSintactico(){
+    printf(":: call INICIO DE FUNCIONES :: \n\n");
+    test();
+}
 /* Definiciones de expresiones en lex */
-#line 863 "lex.yy.c"
+#line 893 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1077,9 +1107,9 @@ YY_DECL
 		}
 
 	{
-#line 348 "lexicoSintactico.l"
+#line 378 "lexicoSintactico.l"
 
-#line 1083 "lex.yy.c"
+#line 1113 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1138,13 +1168,13 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 349 "lexicoSintactico.l"
+#line 379 "lexicoSintactico.l"
 {
                 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 351 "lexicoSintactico.l"
+#line 381 "lexicoSintactico.l"
 {
                     fprintf(archSal, "reservadas ");
                     int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
@@ -1160,7 +1190,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 363 "lexicoSintactico.l"
+#line 393 "lexicoSintactico.l"
 {
                     fprintf(archSal, "especiales ");
                     int idx = insertaColaStr(espQ, espQ->size, yytext, 2);
@@ -1170,7 +1200,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 369 "lexicoSintactico.l"
+#line 399 "lexicoSintactico.l"
 {
                     fprintf(archSal, "identificador "); 
                     int idx = insertaColaStr(identQ, identQ->size, yytext, 1);
@@ -1181,7 +1211,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 376 "lexicoSintactico.l"
+#line 406 "lexicoSintactico.l"
 {
                     fprintf(archSal, "asignacion ");
                     insertaColaNum(tokenQ, 3, 0);
@@ -1191,7 +1221,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 382 "lexicoSintactico.l"
+#line 412 "lexicoSintactico.l"
 {
                     fprintf(archSal, "relacionales");
                     int len = sizeof(RELACIONALES) / sizeof(RELACIONALES[0]);
@@ -1207,7 +1237,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 394 "lexicoSintactico.l"
+#line 424 "lexicoSintactico.l"
 {
                     int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
                     for (int i = 0; i < len; i++){
@@ -1221,7 +1251,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 404 "lexicoSintactico.l"
+#line 434 "lexicoSintactico.l"
 {
                     int idx = insertaColaStr(strQ, strQ->size, yytext, 6);
                     insertaColaNum(tokenQ, 6, idx);
@@ -1230,7 +1260,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 409 "lexicoSintactico.l"
+#line 439 "lexicoSintactico.l"
 {           
                     fprintf(archSal, "entero "); 
                     int idx = insertaColaStr(entQ, entQ->size, yytext, 8);
@@ -1240,7 +1270,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 415 "lexicoSintactico.l"
+#line 445 "lexicoSintactico.l"
 {         
                     fprintf(archSal, "real "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 8);
@@ -1250,7 +1280,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 421 "lexicoSintactico.l"
+#line 451 "lexicoSintactico.l"
 {       
                     fprintf(archSal, "centifico "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 7);
@@ -1260,31 +1290,31 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 427 "lexicoSintactico.l"
+#line 457 "lexicoSintactico.l"
 fprintf(archSal, " "); 
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 428 "lexicoSintactico.l"
+#line 458 "lexicoSintactico.l"
 fprintf(archSal, "\n"); lineCount++;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 429 "lexicoSintactico.l"
+#line 459 "lexicoSintactico.l"
 fprintf(archSal, "\t");  
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 430 "lexicoSintactico.l"
+#line 460 "lexicoSintactico.l"
 fprintf(archErr, "error lineCount %d {%s}", lineCount, yytext); //handleErr(yytext);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 431 "lexicoSintactico.l"
+#line 461 "lexicoSintactico.l"
 ECHO;
 	YY_BREAK
-#line 1288 "lex.yy.c"
+#line 1318 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2285,7 +2315,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 431 "lexicoSintactico.l"
+#line 461 "lexicoSintactico.l"
 
 
 
@@ -2322,6 +2352,8 @@ int main(int argc, char *argv[]) {
     // muestraTablaStr(floatQ, "floats");
     // muestraTablaStr(strQ, "strings");
     muestraTablaAtomo(syntaxQ, "Syntax");
+
+    analisisSintactico();
 
     return 0;
 }
