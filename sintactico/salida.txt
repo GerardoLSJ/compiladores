@@ -1,0 +1,4 @@
+reservadas  identificador  asignacion  entero especiales 
+reservadas especiales identificador  relacionales entero especiales especiales 
+    identificador  asignacion  identificador entero especiales 
+especiales 
