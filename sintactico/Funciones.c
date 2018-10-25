@@ -1,4 +1,6 @@
 //-- Funciones de cada NT para el analizador sintáctico
+char c = 'a';
+
 G(){
 	if (c == '['){
 		c = getchar();
@@ -24,12 +26,11 @@ Z(){
 
 	else if (c == ']'){
 		return;
-
+	}
 	else if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
 		Y();
 		return;
 	}
-
 	else
 		error();
 }
@@ -419,10 +420,8 @@ N(){
 		}
 		else
 			error();
-
-		return;
-
-	else
+		return;	
+	}else
 		error();
 }
 
@@ -440,11 +439,11 @@ K(){
 	else if (c == 't'){
 		c = getchar();
 		return;
-
+	}
 	else if (c == 'f'){
 		c = getchar();
 		return;
-
+	}
 	else
 		error();
 }
@@ -483,23 +482,23 @@ O(){
 	else if (c == 'q'){
 		c = getchar();
 		return;
-
+	}
 	else if (c == '<'){
 		c = getchar();
 		return;
-
+	}
 	else if (c == 'l'){
 		c = getchar();
 		return;
-
+	}
 	else if (c == '>'){
 		c = getchar();
 		return;
-
+	}
 	else if (c == 'g'){
 		c = getchar();
 		return;
-
+	}
 	else
 		error();
 }
@@ -570,9 +569,9 @@ TP(){
 		return;
 	}
 
-	else if (c == '+' || c == '-' || c == ')' || c == ';' ||c == '!' || c == 'q' || c == '<' || c == 'l' || c == '>' || c == 'g')
+	else if (c == '+' || c == '-' || c == ')' || c == ';' ||c == '!' || c == 'q' || c == '<' || c == 'l' || c == '>' || c == 'g'){
 		return;
-
+	}
 	else
 		error();
 }
@@ -600,11 +599,11 @@ F(){
 	else if (c == 'n'){
 		c = getchar();
 		return;
-
+	}
 	else if (c == 'r'){
 		c = getchar();
 		return;
-
+	}
 	else
 		error();
 }

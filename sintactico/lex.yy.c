@@ -607,6 +607,7 @@ atomQueue * syntaxQ;
 
 int lineCount = 0;
 
+char c = '0';
 // Declaramos las tablas estáticas a usar
 char *RESERVADAS[] = {
     "Bul", "Cadena", "Cierto", "Entero", "Falso", "Haz","Mientras", "Para", "Real", "Si", "Sino"
@@ -860,22 +861,26 @@ void muestraTablaAtomo(atomQueue *q , char *nombre) {
 
 char getCharFromQ(){
     if(syntaxQ->head != NULL){
-        char c = syntaxQ->head->caracter;
+        char AUX = syntaxQ->head->caracter;
         if(syntaxQ->head->next != NULL){
             syntaxQ->head = syntaxQ->head->next;
         }else{
             syntaxQ->head = NULL;
         }
-        return c;
+        
+        c = AUX; // VARIABLE GLOBAL C
+        printf("\n act char : %c \n",c);
+        return AUX;
     }else{
         printf(" \n\n :: FINISH SINTAX CHECK :: \n\n");
+        c = '0';
         return '0';
     }
 }
 
 //-- Funciones de cada NT para el analizador sintáctico
-void error(){
-    printf("error");
+void error(char e){
+    printf("\n error: %c", e);
 }
 void test(){
     char c = getCharFromQ();
@@ -886,10 +891,632 @@ void test(){
 }
 void analisisSintactico(){
     printf(":: call INICIO DE FUNCIONES :: \n\n");
+    getCharFromQ(); // INIT
+    S();
+    // imprime el resto de la atomQueue
+    printf("\n --- Ya acabamos vamos a ver que sigue: --- FINAL \n");
     test();
 }
+//ANALISIS LEXICO BEGIN
+
+//-- Funciones de cada NT para el analizador sintáctico
+
+G(){
+	if (c == '['){
+		c = getCharFromQ();
+		Z();
+
+		if (c == ']'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+	}
+	else
+		error(c);
+}
+
+Z(){
+	if (c == 'b' || c == 'c' || c == 'e' || c == 'd'){
+		D();
+		Z();
+		return;
+	}
+
+	else if (c == ']'){
+		return;
+	}
+	else if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
+		Y();
+		return;
+	}
+	else
+		error(c);
+}
+
+Y(){
+	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
+		S();
+		X();
+		return;
+	}
+	
+	else
+		error(c);	
+}
+
+X(){
+	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
+		Y();
+		return;
+	}
+	
+	else if (c == ']')
+		return;
+
+	else
+		error(c);		
+}
+
+D(){
+	if (c == 'b' || c == 'c' || c == 'e' || c == 'd'){
+		J();
+
+		if (c == 'a'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		V();
+		return;
+	}
+	else
+			error(c);	
+}
+
+J(){
+	if (c == 'b'){
+		c = getCharFromQ();
+		return;
+	}
+
+	else if (c == 'c'){
+		c = getCharFromQ();
+		return;
+	}
+
+	else if (c == 'e'){
+		c = getCharFromQ();
+		return;
+	}
+	else if (c == 'd'){
+		c = getCharFromQ();
+		return;
+	}
+
+	else
+		error(c);
+}
+
+V(){
+	if (c == ','){
+		c = getCharFromQ();
+
+		if (c == 'a'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		V();
+		return;
+	}
+
+	else if (c == ';'){
+		c = getCharFromQ();
+		return;
+	}
+
+	else
+		error(c);
+}
+
+S(){
+    printf("INICIO EN S CON %c \n", c);
+	if (c == 'a'){
+		A();
+
+		if (c == ';'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		return;
+	}
+
+	else if (c == 'h'){
+		H();
+		return;
+	}
+
+	else if (c == 'm'){
+		M();
+		return;
+	}
+
+	else if (c == 'p'){
+		P();
+		return;
+	}
+
+	else if (c == 'i'){
+		I();
+		return;
+	}
+
+	else
+		error(c);
+}
+
+A(){
+	if (c == 'a'){
+
+		c = getCharFromQ();
+
+		if (c == '='){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+		
+		K();
+		return;
+	}
+
+	else
+		error(c);
+}
+
+H(){
+	if (c == 'h'){
+
+		c = getCharFromQ();
+
+		if (c == '['){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+		
+		Y();
+
+		if (c == ']'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		if (c == 'm'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		if (c == '('){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		R();
+
+		if (c == ')'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		if (c == ';'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		return;
+	}
+
+	else
+		error(c);
+}
+
+M(){
+	if (c == 'm'){
+		
+		c = getCharFromQ();
+        printf("ESTAMOS EN M: %c \n", c);
+		if (c == '('){
+			c = getCharFromQ();
+			//return;
+		}
+		else
+			error(c);
+		
+		R();
+
+		if (c == ')'){
+			c = getCharFromQ();
+			//return;
+		}
+		else
+			error(c);
+
+		if (c == '['){
+			c = getCharFromQ();
+			//return;
+		}
+		else
+			error(c);
+
+		Y();
+
+		if (c == ']'){
+			c = getCharFromQ();
+			//return;
+		}
+		else
+			error(c);
+
+		R();
+
+		return;
+	}
+
+	else
+		error(c);
+}
+
+P(){
+	if (c == 'p'){
+
+		c = getCharFromQ();
+
+		if (c == '('){
+			c = getCharFromQ();
+			//return;
+		}
+		else
+			error(c);
+		
+		A();
+
+		if (c == ';'){
+			c = getCharFromQ();
+			//return;
+		}
+		else
+			error(c);
+
+		R();
+
+		if (c == ';'){
+			c = getCharFromQ();
+			//return;
+		}
+		else
+			error(c);
+
+		A();
+
+		if (c == ')'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		if (c == '['){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		Y();
+
+		if (c == ']'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		return;
+	}
+
+	else
+		error(c);
+}
+
+I(){
+	if (c == 'i'){
+		
+		c = getCharFromQ();
+
+		if (c == '('){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+		
+		R();
+
+		if (c == ')'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		if (c == '['){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		Y();
+
+		if (c == ']'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		N();
+
+		return;
+	}
+
+	else
+		error(c);
+}
+
+N(){
+	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
+		return;
+	}
+
+	else if (c == 'o'){
+		
+		c = getCharFromQ();
+
+		if (c == '['){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		Y();
+
+		if (c == ']'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+		return;	
+	}else
+		error(c);
+}
+
+K(){
+	if (c == 's'){
+		c = getCharFromQ();
+		return;
+	}
+
+	else if (c == '(' || c == 'a' || c == 'n' || c == 'r'){
+		E();
+		return;
+	}
+
+	else if (c == 't'){
+		c = getCharFromQ();
+		return;
+	}
+	else if (c == 'f'){
+		c = getCharFromQ();
+		return;
+	}
+	else
+		error(c);
+}
+
+R(){
+    printf("ESTAMOS EN R: %c \n", c);
+
+	if (c == '(' || c == 'a' || c == 'n' || c == 'r'){
+		E();
+		Q();
+		return;
+	}
+
+	else
+		error(c);
+}
+
+Q(){
+	if (c == '!' || c == 'q' || c == '<' || c == 'l' || c == '>' || c == 'g'){
+		O();
+		E();
+		return;
+	}
+
+	else if (c == ')' || c == ';')
+		return;
+
+	else
+		error(c);
+}
+
+O(){
+	if (c == '!'){
+		c = getCharFromQ();
+		return;
+	}
+
+	else if (c == 'q'){
+		c = getCharFromQ();
+		return;
+	}
+	else if (c == '<'){
+		c = getCharFromQ();
+		return;
+	}
+	else if (c == 'l'){
+		c = getCharFromQ();
+		return;
+	}
+	else if (c == '>'){
+		c = getCharFromQ();
+		return;
+	}
+	else if (c == 'g'){
+		c = getCharFromQ();
+		return;
+	}
+	else
+		error(c);
+}
+
+E(){
+	if (c == '(' || c == 'a' || c == 'n' || c == 'r'){
+		T();
+		EP();
+		return;
+	}
+
+	else
+		error(c);
+}
+
+EP(){
+	if (c == '+'){
+		c = getCharFromQ();		
+		T();
+		EP();
+		return;
+	}
+
+	else if (c == '-'){
+		c = getCharFromQ();		
+		T();
+		EP();
+		return;
+	}
+
+	else if (c == ')' || c == ';' ||c == '!' || c == 'q' || c == '<' || c == 'l' || c == '>' || c == 'g')
+		return;
+
+	else
+		error(c);
+}
+
+T(){
+	if (c == '(' || c == 'a' || c == 'n' || c == 'r'){
+		F();
+		TP();
+		return;
+	}
+
+	else
+		error(c);
+}
+
+TP(){
+	if (c == '*'){
+		c = getCharFromQ();		
+		F();
+		TP();
+		return;
+	}
+
+	else if (c == '/'){
+		c = getCharFromQ();		
+		F();
+		TP();
+		return;
+	}
+
+	else if (c == '%'){
+		c = getCharFromQ();		
+		F();
+		TP();
+		return;
+	}
+
+	else if (c == '+' || c == '-' || c == ')' || c == ';' ||c == '!' || c == 'q' || c == '<' || c == 'l' || c == '>' || c == 'g'){
+		return;
+	}
+	else
+		error(c);
+}
+
+F(){
+	if (c == '('){
+		c = getCharFromQ();
+		E();
+
+		if (c == ')'){
+			c = getCharFromQ();
+			return;
+		}
+		else
+			error(c);
+
+		return;
+	}
+
+	else if (c == 'a'){
+		c = getCharFromQ();
+		return;
+	}
+
+	else if (c == 'n'){
+		c = getCharFromQ();
+		return;
+	}
+	else if (c == 'r'){
+		c = getCharFromQ();
+		return;
+	}
+	else
+		error(c);
+}
+
+
+
+
+
+// ANALISIS LEXICO END
 /* Definiciones de expresiones en lex */
-#line 893 "lex.yy.c"
+#line 1520 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1107,9 +1734,9 @@ YY_DECL
 		}
 
 	{
-#line 378 "lexicoSintactico.l"
+#line 1005 "lexicoSintactico.l"
 
-#line 1113 "lex.yy.c"
+#line 1740 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1168,13 +1795,13 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 379 "lexicoSintactico.l"
+#line 1006 "lexicoSintactico.l"
 {
                 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 381 "lexicoSintactico.l"
+#line 1008 "lexicoSintactico.l"
 {
                     fprintf(archSal, "reservadas ");
                     int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
@@ -1190,7 +1817,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 393 "lexicoSintactico.l"
+#line 1020 "lexicoSintactico.l"
 {
                     fprintf(archSal, "especiales ");
                     int idx = insertaColaStr(espQ, espQ->size, yytext, 2);
@@ -1200,7 +1827,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 399 "lexicoSintactico.l"
+#line 1026 "lexicoSintactico.l"
 {
                     fprintf(archSal, "identificador "); 
                     int idx = insertaColaStr(identQ, identQ->size, yytext, 1);
@@ -1211,7 +1838,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 406 "lexicoSintactico.l"
+#line 1033 "lexicoSintactico.l"
 {
                     fprintf(archSal, "asignacion ");
                     insertaColaNum(tokenQ, 3, 0);
@@ -1221,7 +1848,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 412 "lexicoSintactico.l"
+#line 1039 "lexicoSintactico.l"
 {
                     fprintf(archSal, "relacionales");
                     int len = sizeof(RELACIONALES) / sizeof(RELACIONALES[0]);
@@ -1237,7 +1864,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 424 "lexicoSintactico.l"
+#line 1051 "lexicoSintactico.l"
 {
                     int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
                     for (int i = 0; i < len; i++){
@@ -1251,7 +1878,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 434 "lexicoSintactico.l"
+#line 1061 "lexicoSintactico.l"
 {
                     int idx = insertaColaStr(strQ, strQ->size, yytext, 6);
                     insertaColaNum(tokenQ, 6, idx);
@@ -1260,7 +1887,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 439 "lexicoSintactico.l"
+#line 1066 "lexicoSintactico.l"
 {           
                     fprintf(archSal, "entero "); 
                     int idx = insertaColaStr(entQ, entQ->size, yytext, 8);
@@ -1270,7 +1897,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 445 "lexicoSintactico.l"
+#line 1072 "lexicoSintactico.l"
 {         
                     fprintf(archSal, "real "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 8);
@@ -1280,7 +1907,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 451 "lexicoSintactico.l"
+#line 1078 "lexicoSintactico.l"
 {       
                     fprintf(archSal, "centifico "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 7);
@@ -1290,31 +1917,31 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 457 "lexicoSintactico.l"
+#line 1084 "lexicoSintactico.l"
 fprintf(archSal, " "); 
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 458 "lexicoSintactico.l"
+#line 1085 "lexicoSintactico.l"
 fprintf(archSal, "\n"); lineCount++;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 459 "lexicoSintactico.l"
+#line 1086 "lexicoSintactico.l"
 fprintf(archSal, "\t");  
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 460 "lexicoSintactico.l"
+#line 1087 "lexicoSintactico.l"
 fprintf(archErr, "error lineCount %d {%s}", lineCount, yytext); //handleErr(yytext);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 461 "lexicoSintactico.l"
+#line 1088 "lexicoSintactico.l"
 ECHO;
 	YY_BREAK
-#line 1318 "lex.yy.c"
+#line 1945 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2315,7 +2942,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 461 "lexicoSintactico.l"
+#line 1088 "lexicoSintactico.l"
 
 
 
