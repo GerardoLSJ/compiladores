@@ -1,3 +1,6 @@
-Mientras( i .MN. 10)[
-    i := 10;
+[
+    Entero var := 5;
+    Mientras( i .MN. 10)[
+        i := 10;
+    ]
 ]
