@@ -911,8 +911,8 @@ char getCharFromQ() {
 }
 
 //-- Funciones de cada NT para el analizador sintáctico
-void error(char e) {
-    printf("\n error: %c", e);
+void error(char e, char *func) {
+    printf("\n error en %s valor: %c", func,e);
 }
 
 void test() {
@@ -954,10 +954,10 @@ void G(){
 			c = getCharFromQ();
 		}
 		else
-			error(c);
+			error(c,"G");
 	}
 	else
-		error(c);
+		error(c,"G");
 }
 
 void Z(){
@@ -979,7 +979,7 @@ void Z(){
 	}
 
 	else
-		error(c);
+		error(c,"Z");
 }
 
 void Y(){
@@ -991,7 +991,7 @@ void Y(){
 	}
 
 	else
-		error(c);	
+		error(c,"Y");	
 }
 
 void X(){
@@ -1005,7 +1005,7 @@ void X(){
 		return;
 
 	else
-		error(c);		
+		error(c,"X");		
 }
 
 void D(){
@@ -1018,14 +1018,14 @@ void D(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"D");
 
 		V();
 		return;
 	}
 
 	else
-		error(c);	
+		error(c,"D");	
 }
 
 void J(){
@@ -1051,7 +1051,7 @@ void J(){
 	}
 
 	else
-		error(c);
+		error(c,"J");
 }
 
 void V(){
@@ -1064,7 +1064,7 @@ void V(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"V");
 
 		V();
 		return;
@@ -1076,7 +1076,7 @@ void V(){
 	}
 
 	else
-		error(c);
+		error(c,"V");
 }
 
 void S(){
@@ -1090,7 +1090,7 @@ void S(){
 		}
 
 		else
-			error(c);
+			error(c,"S");
 
 		return;
 	}
@@ -1116,7 +1116,7 @@ void S(){
 	}
 
 	else
-		error(c);
+		error(c,"S");
 }
 
 void A(){
@@ -1130,14 +1130,14 @@ void A(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"A");
 		
 		K();
 		return;
 	}
 
 	else
-		error(c);
+		error(c,"A");
 }
 
 void H(){
@@ -1151,7 +1151,7 @@ void H(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"H");
 		
 		Y();
 
@@ -1160,21 +1160,21 @@ void H(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"H");
 
 		if (c == 'm'){
 			c = getCharFromQ();
 			//return;
 		}
 		else
-			error(c);
+			error(c,"H");
 
 		if (c == '('){
 			c = getCharFromQ();
 			//return;
 		}
 		else
-			error(c);
+			error(c,"H");
 
 		R();
 
@@ -1183,20 +1183,20 @@ void H(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"H");
 
 		if (c == ';'){
 			c = getCharFromQ();
 			//return;
 		}
 		else
-			error(c);
+			error(c,"H");
 
 		return;
 	}
 
 	else
-		error(c);
+		error(c,"H");
 }
 
 void M(){
@@ -1210,7 +1210,7 @@ void M(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"M");
 		
 		R();
 
@@ -1219,14 +1219,14 @@ void M(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"M");
 
 		if (c == '['){
 			c = getCharFromQ();
 			//return;
 		}
 		else
-			error(c);
+			error(c,"M");
 
 		Y();
 
@@ -1235,14 +1235,14 @@ void M(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"M");
 
 		R();
 		return;
 	}
 
 	else
-		error(c);
+		error(c,"M");
 }
 
 void P(){
@@ -1256,7 +1256,7 @@ void P(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"R");
 		
 		A();
 
@@ -1265,7 +1265,7 @@ void P(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"R");
 
 		R();
 
@@ -1274,7 +1274,7 @@ void P(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"R");
 
 		A();
 
@@ -1283,14 +1283,14 @@ void P(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"R");
 
 		if (c == '['){
 			c = getCharFromQ();
 			//return;
 		}
 		else
-			error(c);
+			error(c,"R");
 
 		Y();
 
@@ -1299,13 +1299,13 @@ void P(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"R");
 
 		return;
 	}
 
 	else
-		error(c);
+		error(c,"R");
 }
 
 void I(){
@@ -1319,7 +1319,7 @@ void I(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"I");
 		
 		R();
 
@@ -1328,14 +1328,14 @@ void I(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"I");
 
 		if (c == '['){
 			c = getCharFromQ();
 			//return;
 		}
 		else
-			error(c);
+			error(c,"I");
 
 		Y();
 
@@ -1344,7 +1344,7 @@ void I(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"I");
 
 		N();
 
@@ -1352,7 +1352,7 @@ void I(){
 	}
 
 	else
-		error(c);
+		error(c,"I");
 }
 
 void N(){
@@ -1370,7 +1370,7 @@ void N(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"N");
 
 		Y();
 
@@ -1379,13 +1379,13 @@ void N(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"N");
 		
 		return;	
 	}
 	
 	else
-		error(c);
+		error(c,"N");
 }
 
 void K(){
@@ -1411,7 +1411,7 @@ void K(){
 	}
 
 	else
-		error(c);
+		error(c,"K");
 }
 
 void R(){
@@ -1423,7 +1423,7 @@ void R(){
 	}
 
 	else
-		error(c);
+		error(c,"R");
 }
 
 void Q(){
@@ -1438,7 +1438,7 @@ void Q(){
 		return;
 
 	else
-		error(c);
+		error(c,"Q");
 }
 
 void O(){
@@ -1474,7 +1474,7 @@ void O(){
 	}
 	
 	else
-		error(c);
+		error(c,"O");
 }
 
 void E(){
@@ -1486,7 +1486,7 @@ void E(){
 	}
 
 	else
-		error(c);
+		error(c,"E");
 }
 
 void EP(){
@@ -1509,7 +1509,7 @@ void EP(){
 		return;
 
 	else
-		error(c);
+		error(c,"EP");
 }
 
 void T(){
@@ -1521,7 +1521,7 @@ void T(){
 	}
 
 	else
-		error(c);
+		error(c,"T");
 }
 
 void TP(){
@@ -1551,7 +1551,7 @@ void TP(){
 		return;
 	}
 	else
-		error(c);
+		error(c,"TP");
 }
 
 void F(){
@@ -1565,7 +1565,7 @@ void F(){
 			//return;
 		}
 		else
-			error(c);
+			error(c,"F");
 
 		return;
 	}
@@ -1586,7 +1586,7 @@ void F(){
 	}
 	
 	else
-		error(c);
+		error(c,"F");
 }
 // ANALISIS LEXICO END
 
