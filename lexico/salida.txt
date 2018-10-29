@@ -5,7 +5,7 @@ identificador  entero especiales
 identificador   entero especiales 
 identificador   entero especiales 
 identificador   entero especiales 
-reservadas  identificador  asignacion  cientifico especiales 
+reservadas  identificador  asignacion  centifico especiales 
 identificador  identificador  asignacion  real especiales 
 reservadas  identificador  asignacion  identificador especiales 
 identificador  asignacion  especiales  

@@ -1,6 +1,10 @@
 [
-    Entero var := 5;
+    var := 5;
     Mientras( i .MN. 10)[
+        Si(i .MY. 1)[
         i := 10;
+        ] Sino[
+            i := i-1;
+        ]
     ]
 ]
