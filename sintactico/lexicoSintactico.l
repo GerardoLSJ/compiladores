@@ -695,7 +695,7 @@ void M(){
 
 		if (c == ']'){
 			c = getCharFromQ();
-			//return;
+			return;
 		}
 		else
 			error(c,"M");
@@ -759,7 +759,7 @@ void P(){
 
 		if (c == ']'){
 			c = getCharFromQ();
-			//return;
+			return;
 		}
 		else
 			error(c,"R");
@@ -839,7 +839,7 @@ void N(){
 
 		if (c == ']'){
 			c = getCharFromQ();
-			//return;
+			return;
 		}
 		else
 			error(c,"N");
