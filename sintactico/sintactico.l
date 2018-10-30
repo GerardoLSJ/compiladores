@@ -59,6 +59,7 @@ typedef struct atomQueue{
 FILE *archSal;
 FILE *archErr;
 FILE *tokens;
+FILE *errSintactico;
 
 intQueue * tokenQ;
 strQueue * identQ;
@@ -96,7 +97,7 @@ char *RELACIONALES[] = {
 char *ARITMETICOS[] = {"+","-","*","/","%"};
 
 
-
+// Declaracion de las funciones para el analizador sintactico
 void G();
 void Z();
 void Y();
@@ -336,8 +337,8 @@ void buscarAtomoRelacional(atomQueue *q, char *valor) {
 }
 
 void muestraTablaAtomo(atomQueue *q , char *nombre) {
-    printf("\n  -- -- -- -- -- %s -- -- -- -- -- \n", nombre);
-    printf("\n\t Valor \n");
+    //printf("\n  -- -- -- -- -- %s -- -- -- -- -- \n", nombre);
+    printf("\n-- -- -- -- -- Cadena de atomos -- -- -- -- -- \n");
 
     Caracter * pointer = (Caracter*)malloc(sizeof(Caracter));
     pointer = q->head;
@@ -362,41 +363,28 @@ char getCharFromQ() {
             syntaxQ->head = NULL;
         
         c = AUX; // VARIABLE GLOBAL C
-        //printf("\n act char : %c \n",c);
 
         return AUX;
     }
     else {
-        printf(" \n\n :: FINISH SINTAX CHECK :: \n\n");
+        printf(" \n :: COLA VACIA, TERMINO LA DE EJECUTARSE EL ANALISIS SINTACTICO :: \n\n");
         c = '0';
         return '0';
     }
 }
 
 //-- Funciones de cada NT para el analizador sintáctico
-void error(char e, char *func) {
-    printf("\n error en %s valor: %c", func,e);
+void error(char val, char *atomo) {
+    printf("\n Error en atomo %s(), valor ingresado: \"%c\" \n", atomo,val);
+	fprintf(errSintactico, "\n Error en atomo %s(), valor ingresado: \"%c\" ", atomo,val);
+
 }
 
-void test() {
-    char c = getCharFromQ();
-
-    while (c != '0') {
-        //printf("%c",c);
-        c = getCharFromQ();    
-    }
-}
 
 void analisisSintactico() {
-    printf(":: call INICIO DE FUNCIONES :: \n\n");
-    
+    printf(":: Inicio de analizador sintactico :: \n\n");
     getCharFromQ(); // INIT
     G();
-
-    // imprime el resto de la atomQueue
-    printf("\n --- Ya acabamos vamos a ver que sigue: --- FINAL \n");
-    
-    test();
 }
 
 
@@ -408,7 +396,7 @@ void analisisSintactico() {
 */
 
 void G(){
-	printf("\n G() %c",c);
+	//printf("\n G() %c",c);
 	if (c == '['){
 		c = getCharFromQ();
 		Z();
@@ -424,7 +412,7 @@ void G(){
 }
 
 void Z(){
-	printf("\n Z() %c",c);
+	//printf("\n Z() %c",c);
 
 	if (c == 'b' || c == 'c' || c == 'e' || c == 'd'){
 		D();
@@ -446,7 +434,7 @@ void Z(){
 }
 
 void Y(){
-	printf("\n Y() %c",c);
+	//printf("\n Y() %c",c);
 	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
 		S();
 		X();
@@ -458,7 +446,7 @@ void Y(){
 }
 
 void X(){
-	printf("\n X() %c",c);
+	//printf("\n X() %c",c);
 	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
 		Y();
 		return;
@@ -472,7 +460,7 @@ void X(){
 }
 
 void D(){
-	printf("\n D() %c",c);
+	//printf("\n D() %c",c);
 	if (c == 'b' || c == 'c' || c == 'e' || c == 'd'){
 		J();
 
@@ -492,7 +480,7 @@ void D(){
 }
 
 void J(){
-	printf("\n J() %c",c);
+	//printf("\n J() %c",c);
 	if (c == 'b'){
 		c = getCharFromQ();
 		return;
@@ -518,7 +506,7 @@ void J(){
 }
 
 void V(){
-	printf("\n V() %c",c);
+	//printf("\n V() %c",c);
 	if (c == ','){
 		c = getCharFromQ();
 
@@ -543,7 +531,7 @@ void V(){
 }
 
 void S(){
-	printf("\n S() %c",c);
+	//printf("\n S() %c",c);
 	if (c == 'a'){
 		A();
 
@@ -583,7 +571,7 @@ void S(){
 }
 
 void A(){
-	printf("\n A() %c",c);
+	//printf("\n A() %c",c);
 	if (c == 'a'){
 
 		c = getCharFromQ();
@@ -604,7 +592,7 @@ void A(){
 }
 
 void H(){
-	printf("\n H() %c",c);
+	//printf("\n H() %c",c);
 	if (c == 'h'){
 
 		c = getCharFromQ();
@@ -663,7 +651,7 @@ void H(){
 }
 
 void M(){
-	printf("\n M() %c",c);
+	//printf("\n M() %c",c);
 	if (c == 'm'){
 		
 		c = getCharFromQ();
@@ -709,7 +697,7 @@ void M(){
 }
 
 void P(){
-	printf("\n P() %c",c);
+	//printf("\n P() %c",c);
 	if (c == 'p'){
 
 		c = getCharFromQ();
@@ -772,7 +760,7 @@ void P(){
 }
 
 void I(){
-	printf("\n I() %c",c);
+	//printf("\n I() %c",c);
 	if (c == 'i'){
 		
 		c = getCharFromQ();
@@ -819,7 +807,7 @@ void I(){
 }
 
 void N(){
-	printf("\n N() %c",c);
+	//printf("\n N() %c",c);
 	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
 		return;
 	}
@@ -852,7 +840,7 @@ void N(){
 }
 
 void K(){
-	printf("\n K() %c",c);
+	//printf("\n K() %c",c);
 	if (c == 's'){
 		c = getCharFromQ();
 		return;
@@ -878,7 +866,7 @@ void K(){
 }
 
 void R(){
-	printf("\n R() %c",c);
+	//printf("\n R() %c",c);
 	if (c == '(' || c == 'a' || c == 'n' || c == 'r'){
 		E();
 		Q();
@@ -890,7 +878,7 @@ void R(){
 }
 
 void Q(){
-	printf("\n O() %c",c);
+	//printf("\n O() %c",c);
 	if (c == '!' || c == 'q' || c == '<' || c == 'l' || c == '>' || c == 'g'){
 		O();
 		E();
@@ -905,7 +893,7 @@ void Q(){
 }
 
 void O(){
-	printf("\n O() %c",c);
+	//printf("\n O() %c",c);
 	if (c == '!'){
 		c = getCharFromQ();
 		return;
@@ -941,7 +929,7 @@ void O(){
 }
 
 void E(){
-	printf("\n O() %c",c);
+	//printf("\n O() %c",c);
 	if (c == '(' || c == 'a' || c == 'n' || c == 'r'){
 		T();
 		EP();
@@ -953,7 +941,7 @@ void E(){
 }
 
 void EP(){
-	printf("E\n P() %c",c);
+	//printf("E\n P() %c",c);
 	if (c == '+'){
 		c = getCharFromQ();		
 		T();
@@ -976,7 +964,7 @@ void EP(){
 }
 
 void T(){
-	printf("\n T() %c",c);
+	//printf("\n T() %c",c);
 	if (c == '(' || c == 'a' || c == 'n' || c == 'r'){
 		F();
 		TP();
@@ -988,7 +976,7 @@ void T(){
 }
 
 void TP(){
-	printf("T\n P() %c",c);
+	//printf("T\n P() %c",c);
 	if (c == '*'){
 		c = getCharFromQ();		
 		F();
@@ -1018,7 +1006,7 @@ void TP(){
 }
 
 void F(){
-	printf("\n F() %c",c);
+	//printf("\n F() %c",c);
 	if (c == '('){
 		c = getCharFromQ();
 		E();
@@ -1179,6 +1167,7 @@ int main(int argc, char *argv[]) {
     archSal = fopen("salida.txt","w");
     archErr = fopen("errores.txt", "w");
     tokens = fopen("tokens.txt","w");
+    errSintactico = fopen("syntaxErrors.txt","w");
 
 
     initQueueInt(tokenQ);

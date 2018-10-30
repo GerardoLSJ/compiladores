@@ -1,9 +1,0 @@
-Mientras(i .MN. 10)[
-    i := i+1;
-]
-
-Si(i .IGL. var)[
-    var := i;
-] Sino[
-    var := 0;
-]
