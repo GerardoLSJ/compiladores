@@ -4,7 +4,7 @@
 
     Compiladores, grupo 2
     
-    Analizador léxico creado con ANSI C y lex.
+    Analizador léxico - sintactico creado con ANSI C y lex.
 */     
 #include <string.h>
 #include <stdlib.h>
@@ -13,6 +13,7 @@
 typedef struct Cadena{
     int  posicion;
     char *cadena;
+	char *tipo;
 
     struct Cadena * prev;
     struct Cadena * next;
@@ -21,6 +22,7 @@ typedef struct Cadena{
 typedef struct Numero{
     int clase;
     int valor;
+	char *tipo;
 
     struct Numero * prev;
     struct Numero * next;
@@ -67,6 +69,7 @@ strQueue * strQ;
 strQueue * floatQ;
 strQueue * entQ;
 strQueue * espQ;
+strQueue * simbolosQ;
 atomQueue * syntaxQ;
 
 int lineCount = 0;
@@ -191,12 +194,13 @@ void muestraTablaStr(strQueue *q , char *nombre) {
 }
 
 //Funciones de tipo Numericas
-void insertaColaNum(intQueue *q, int clase, int valor) {
+void insertaColaNum(intQueue *q, int clase, int valor, char *tipo) {
     Numero * item = (Numero*)malloc(sizeof(Numero));
     
     item->valor = valor;
     item->clase = clase;
-
+	item->tipo = (char *)calloc(strlen(tipo),sizeof(char));
+	strcpy(item->tipo, tipo);
     if (q->head == NULL) { // Primer elemento en la cola
         item->next  = NULL;
         item->prev = NULL;
@@ -232,13 +236,13 @@ int busquedaInt(intQueue *q, int valor) {
 
 void muestraTablaInt(intQueue *q) {
     printf("\n  -- -- -- -- -- -- -- -- -- -- -- -- \n");
-    printf("\n\t Clase\t\tValor \n");
+    printf("\n\t Clase\t\t Valor \t\tTipo \n");
 
     Numero * pointer = (Numero*)malloc(sizeof(Numero));
     pointer = q->head;
 
     while(pointer != NULL) {
-        printf("\n\t %d\t\t%d", pointer->clase, pointer->valor);
+        printf("\n\t %d\t\t%d \t\t%s", pointer->clase, pointer->valor, pointer->tipo);
         pointer = pointer->next;
     }
 
@@ -1067,7 +1071,7 @@ stringCte       (\"(.+)\")
 entero          {digit}+
 real            ({digit}+\.|\.{digit}+){digit}*
 exp             ({real}|{entero})(e|E)(\+|-)?{entero}
-
+ 
 %%
 {comment}       {
                 }
@@ -1076,7 +1080,7 @@ exp             ({real}|{entero})(e|E)(\+|-)?{entero}
                     int len = sizeof(RESERVADAS) / sizeof(RESERVADAS[0]);
                     for (int i = 0; i < len; i++){
                          if (strcmp(yytext, RESERVADAS[i]) == 0){
-                             insertaColaNum(tokenQ, 0, i);
+                             insertaColaNum(tokenQ, 0, i, RESERVADAS[i] );
                              fprintf(tokens, "(0,%d)\n", i);
                              insertarAtomoReservado(syntaxQ, yytext);
 
@@ -1086,19 +1090,19 @@ exp             ({real}|{entero})(e|E)(\+|-)?{entero}
 {especiales}    {
                     fprintf(archSal, "especiales ");
                     int idx = insertaColaStr(espQ, espQ->size, yytext, 2);
-                    insertaColaNum(tokenQ, 2, idx);
+                    insertaColaNum(tokenQ, 2, idx, yytext);
                     insertarAtomo(syntaxQ, syntaxQ->size, yytext[0] );
                 }
 {identificador} {
                     fprintf(archSal, "identificador "); 
                     int idx = insertaColaStr(identQ, identQ->size, yytext, 1);
-                    insertaColaNum(tokenQ, 1, idx);
+                    insertaColaNum(tokenQ, 1, idx, yytext);
                     insertarAtomo(syntaxQ, syntaxQ->size, 'a' );
 
                 }
 {asignacion}    {
                     fprintf(archSal, "asignacion ");
-                    insertaColaNum(tokenQ, 3, 0);
+                    insertaColaNum(tokenQ, 3, 0, "=");
                     insertarAtomo(syntaxQ, syntaxQ->size, '=' );
 
                 }
@@ -1108,7 +1112,7 @@ exp             ({real}|{entero})(e|E)(\+|-)?{entero}
                     for (int i = 0; i < len; i++){
 
                         if (strcmp(yytext, RELACIONALES[i]) == 0){
-                            insertaColaNum(tokenQ, 4, i);
+                            insertaColaNum(tokenQ, 4, i, RELACIONALES[i]);
                             buscarAtomoRelacional(syntaxQ, yytext); 
                         }
                              
@@ -1118,7 +1122,7 @@ exp             ({real}|{entero})(e|E)(\+|-)?{entero}
                     int len = sizeof(ARITMETICOS) / sizeof(ARITMETICOS[0]);
                     for (int i = 0; i < len; i++){
                         if (strcmp(yytext, ARITMETICOS[i]) == 0){
-                             insertaColaNum(tokenQ, 5, i);
+                             insertaColaNum(tokenQ, 5, i, ARITMETICOS[i]);
                              insertarAtomo(syntaxQ, syntaxQ->size, yytext[0] );
                         }
 
@@ -1126,25 +1130,25 @@ exp             ({real}|{entero})(e|E)(\+|-)?{entero}
                 }
 {stringCte}     {
                     int idx = insertaColaStr(strQ, strQ->size, yytext, 6);
-                    insertaColaNum(tokenQ, 6, idx);
+                    insertaColaNum(tokenQ, 6, idx, yytext);
                     insertarAtomo(syntaxQ, syntaxQ->size, 's' );
                 }
 {entero}        {           
                     fprintf(archSal, "entero "); 
                     int idx = insertaColaStr(entQ, entQ->size, yytext, 8);
-                    insertaColaNum(tokenQ, 7, idx);
+                    insertaColaNum(tokenQ, 7, idx, yytext);
                     insertarAtomo(syntaxQ, syntaxQ->size, 'n' );
                 }
 {real}          {         
                     fprintf(archSal, "real "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 8);
-                    insertaColaNum(tokenQ, 8, idx);
+                    insertaColaNum(tokenQ, 8, idx, yytext);
                     insertarAtomo(syntaxQ, syntaxQ->size, 'r' );
                 }
 {exp}           {       
                     fprintf(archSal, "centifico "); 
                     int idx = insertaColaStr(floatQ, floatQ->size, yytext, 7);
-                    insertaColaNum(tokenQ, 8, idx);
+                    insertaColaNum(tokenQ, 8, idx, yytext);
                     insertarAtomo(syntaxQ, syntaxQ->size, 'r' );
                 }
 {space}         fprintf(archSal, " "); 
@@ -1180,12 +1184,12 @@ int main(int argc, char *argv[]) {
     yylex();
     fclose(archSal);
 
-    // muestraTablaInt(tokenQ);
-    // muestraTablaStr(identQ, "idents");
-    // muestraTablaStr(espQ, "espec");
-    // muestraTablaStr(entQ, "enteros");
-    // muestraTablaStr(floatQ, "floats");
-    // muestraTablaStr(strQ, "strings");
+    muestraTablaInt(tokenQ);
+     muestraTablaStr(identQ, "idents");
+     muestraTablaStr(espQ, "espec");
+     muestraTablaStr(entQ, "enteros");
+     muestraTablaStr(floatQ, "floats");
+     muestraTablaStr(strQ, "strings");
     muestraTablaAtomo(syntaxQ, "Syntax");
 
     analisisSintactico();
