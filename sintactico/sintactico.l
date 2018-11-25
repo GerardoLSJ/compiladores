@@ -59,6 +59,7 @@ typedef struct atomQueue{
 /* ------------------------ Declaración de variables -------------------------- */
 
 FILE *archSal;
+FILE *salida;
 FILE *archErr;
 FILE *tokens;
 FILE *errSintactico;
@@ -72,6 +73,8 @@ strQueue * espQ;
 strQueue * simbolosQ;
 atomQueue * syntaxQ;
 
+Numero * tokenP;
+char *curr;
 int lineCount = 0;
 char c = '0';
 
@@ -381,12 +384,17 @@ char getCharFromQ() {
 void error(char val, char *atomo) {
     printf("\n Error en atomo %s(), valor ingresado: \"%c\" \n", atomo,val);
 	fprintf(errSintactico, "\n Error en atomo %s(), valor ingresado: \"%c\" ", atomo,val);
-
 }
 
-
-void analisisSintactico() {
+void analisisSintactico(intQueue *q) {
     printf(":: Inicio de analizador sintactico :: \n\n");
+
+	tokenP = (Numero*)malloc(sizeof(Numero));
+	printf("malloc %d", q->head->valor);
+    tokenP = tokenQ->head;  // A Q U I 
+	
+	printf("\n tokenP: %d", tokenP->clase);
+
     getCharFromQ(); // INIT
     G();
 }
@@ -395,17 +403,67 @@ void analisisSintactico() {
 // **************************************************************************************************
 
 /*
-    ANALISIS LEXICO BEGIN
     Funciones de cada NT para el analizador sintáctico
 */
 
+/* analisis semantico */
+
+//nextAtrib
+
+int nextAtr(){
+	tokenP = tokenP->next;
+	curr = (char *)calloc(strlen(tokenP->tipo),sizeof(char));
+	strcpy(curr,tokenP->tipo);
+	printf("\n curr: %s", curr);
+	return 0;
+}
+
+
+//TChar()
+int TChar(){
+	fprintf(salida,"%s", curr);
+	return 0;
+}
+
+int TRes(){
+return 0;
+}
+//avt
+int AddValTrans(){
+return 0;
+}
+
+//TP
+int TSim(){
+return 0;
+}
+//TS
+int TStr(){
+return 0;
+}
+
+int TRel(){
+return 0;
+}
+
+
+//Funciones
 void G(){
 	//printf("\n G() %c",c);
 	if (c == '['){
-		c = getCharFromQ();
+
+        TChar();
+
+        fprintf (salida, "\n\t");
+		
+        c = getCharFromQ();
+        nextAtr();
 		Z();
 
 		if (c == ']'){
+            fprintf(salida, "\n\t");
+            //TChar();
+
 			c = getCharFromQ();
 		}
 		else
@@ -463,19 +521,22 @@ void X(){
 		error(c,"X");		
 }
 
-void D(){
+//Funciones
+//Argumentos
+void D(int t, int p){
 	//printf("\n D() %c",c);
 	if (c == 'b' || c == 'c' || c == 'e' || c == 'd'){
 		J();
 
 		if (c == 'a'){
+            //AVT(t,p);
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"D");
 
-		V();
+		V(t);
 		return;
 	}
 
@@ -483,25 +544,59 @@ void D(){
 		error(c,"D");	
 }
 
+//Funciones
+//Argumentos
 void J(){
 	//printf("\n J() %c",c);
 	if (c == 'b'){
+        //TR();
+        //int p;
+        //int t;
+        ////t = convertToInt(atr);
+
 		c = getCharFromQ();
+        //nextAtr();
+        ////p = convertToInt(atr);
+
 		return;
 	}
 
 	else if (c == 'c'){
+		//TR();
+        //int p;
+        //int t;
+        //t = convertToInt(atr);
+
 		c = getCharFromQ();
+        //nextAtr();
+        //p = convertToInt(atr);
+
 		return;
 	}
 
 	else if (c == 'e'){
+		//TR();
+        //int p;
+        //int t;
+        //t = convertToInt(atr);
+
 		c = getCharFromQ();
+        //nextAtr();
+        //p = convertToInt(atr);
+
 		return;
 	}
 
 	else if (c == 'd'){
+		//TR();
+        //int p;
+        //int t;
+        //t = convertToInt(atr);
+
 		c = getCharFromQ();
+        //nextAtr();
+        //p = convertToInt(atr);
+
 		return;
 	}
 
@@ -509,13 +604,24 @@ void J(){
 		error(c,"J");
 }
 
+//Funciones // int t
 void V(){
 	//printf("\n V() %c",c);
 	if (c == ','){
+
+        //TChar();
+        //int p;
 		c = getCharFromQ();
+        //nextAtr();
+        ////p = convertToInt(atr);
 
 		if (c == 'a'){
+
+            //AVT(t, p);
+
 			c = getCharFromQ();
+
+            //nextAtr();
 			//return;
 		}
 		else
@@ -526,7 +632,13 @@ void V(){
 	}
 
 	else if (c == ';'){
+        //TChar();
+        fprintf(salida, "\n\t");
+
 		c = getCharFromQ();
+
+        //nextAtr();
+
 		return;
 	}
 
@@ -534,14 +646,18 @@ void V(){
 		error(c,"V");
 }
 
+//No pusieron los return para h, m, p...
+//Funciones
 void S(){
 	//printf("\n S() %c",c);
 	if (c == 'a'){
 		A();
 
 		if (c == ';'){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//return;
+            nextAtr();
 		}
 
 		else
@@ -574,15 +690,19 @@ void S(){
 		error(c,"S");
 }
 
+//Funciones
 void A(){
 	//printf("\n A() %c",c);
 	if (c == 'a'){
 
+        //TP();
 		c = getCharFromQ();
+        //nextAtr();
 
 		if (c == '='){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+            //nextAtr();
 		}
 		else
 			error(c,"A");
@@ -595,38 +715,47 @@ void A(){
 		error(c,"A");
 }
 
+//Funciones
 void H(){
 	//printf("\n H() %c",c);
 	if (c == 'h'){
 
+        //TR();
 		c = getCharFromQ();
+        //nextAtr();
 
 		if (c == '['){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//return;
+            //nextAtr();
 		}
 		else
 			error(c,"H");
 		
 		Y();
+        fprintf(salida, "\n\t");
 
 		if (c == ']'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+            //nextAtr();
 		}
 		else
 			error(c,"H");
 
 		if (c == 'm'){
+            //TR();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"H");
 
 		if (c == '('){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"H");
@@ -634,15 +763,18 @@ void H(){
 		R();
 
 		if (c == ')'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"H");
 
 		if (c == ';'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
+            fprintf(salida, "\n\t");
 		}
 		else
 			error(c,"H");
@@ -654,15 +786,20 @@ void H(){
 		error(c,"H");
 }
 
+//Funciones
+//Error al final?
 void M(){
 	//printf("\n M() %c",c);
 	if (c == 'm'){
 		
+        //TR();
 		c = getCharFromQ();
+        //nextAtr();
 
 		if (c == '('){
+            TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"M");
@@ -670,29 +807,34 @@ void M(){
 		R();
 
 		if (c == ')'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"M");
 
 		if (c == '['){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"M");
 
 		Y();
+        fprintf(salida, "\n\t");
 
 		if (c == ']'){
+            //TChar();
 			c = getCharFromQ();
-			return;
+			//nextAtr();
 		}
 		else
 			error(c,"M");
 
-		R();
+		//R(); //Creo que esta no va...
 		return;
 	}
 
@@ -700,15 +842,19 @@ void M(){
 		error(c,"M");
 }
 
+//Funciones
 void P(){
 	//printf("\n P() %c",c);
 	if (c == 'p'){
 
+        //TR();
 		c = getCharFromQ();
+        //nextAtr();
 
 		if (c == '('){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"R");
@@ -716,8 +862,9 @@ void P(){
 		A();
 
 		if (c == ';'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"R");
@@ -725,8 +872,9 @@ void P(){
 		R();
 
 		if (c == ';'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"R");
@@ -734,15 +882,18 @@ void P(){
 		A();
 
 		if (c == ')'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"R");
 
 		if (c == '['){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"R");
@@ -750,7 +901,10 @@ void P(){
 		Y();
 
 		if (c == ']'){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
+            //nextAtr();
 			return;
 		}
 		else
@@ -763,15 +917,19 @@ void P(){
 		error(c,"R");
 }
 
+//Funciones
 void I(){
 	//printf("\n I() %c",c);
 	if (c == 'i'){
 		
+        //TR();
 		c = getCharFromQ();
+        //nextAtr();
 
 		if (c == '('){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"I");
@@ -779,24 +937,30 @@ void I(){
 		R();
 
 		if (c == ')'){
+            //TChar();
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"I");
 
 		if (c == '['){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"I");
 
 		Y();
+        fprintf(salida, "\n\t");        
 
 		if (c == ']'){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"I");
@@ -810,27 +974,36 @@ void I(){
 		error(c,"I");
 }
 
+//Funciones
 void N(){
 	//printf("\n N() %c",c);
-	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i'){
+	if (c == 'a' || c == 'h' || c == 'm' || c == 'p' || c == 'i' || c ==  ']'){
 		return;
 	}
 
 	else if (c == 'o'){
 		
+        //TR();
 		c = getCharFromQ();
+        //nextAtr();
 
 		if (c == '['){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//return;
+			//nextAtr();
 		}
 		else
 			error(c,"N");
 
 		Y();
+        fprintf(salida, "\n\t");
 
 		if (c == ']'){
+            //TChar();
+            fprintf(salida, "\n\t");
 			c = getCharFromQ();
+            ///nextAtr();
 			return;
 		}
 		else
@@ -843,6 +1016,7 @@ void N(){
 		error(c,"N");
 }
 
+//Modificar
 void K(){
 	//printf("\n K() %c",c);
 	if (c == 's'){
@@ -896,35 +1070,48 @@ void Q(){
 		error(c,"Q");
 }
 
+//Funciones
 void O(){
 	//printf("\n O() %c",c);
 	if (c == '!'){
+        //TOR();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 
 	else if (c == 'q'){
+		//TOR();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 
 	else if (c == '<'){
+		//TOR();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 
 	else if (c == 'l'){
+		//TOR();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 	
 	else if (c == '>'){
+		//TOR();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 	
 	else if (c == 'g'){
+		//TOR();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 	
@@ -944,17 +1131,22 @@ void E(){
 		error(c,"E");
 }
 
+//Funciones
 void EP(){
 	//printf("E\n P() %c",c);
 	if (c == '+'){
-		c = getCharFromQ();		
+        //TChar();
+		c = getCharFromQ();
+        //nextAtr();
 		T();
 		EP();
 		return;
 	}
 
 	else if (c == '-'){
+        //TChar();
 		c = getCharFromQ();		
+        //nextAtr();
 		T();
 		EP();
 		return;
@@ -979,24 +1171,31 @@ void T(){
 		error(c,"T");
 }
 
+//Funciones
 void TP(){
 	//printf("T\n P() %c",c);
 	if (c == '*'){
-		c = getCharFromQ();		
+        //TChar();
+		c = getCharFromQ();	
+        //nextAtr();
 		F();
 		TP();
 		return;
 	}
 
 	else if (c == '/'){
-		c = getCharFromQ();		
+		//TChar();
+		c = getCharFromQ();
+        //nextAtr();	
 		F();
 		TP();
 		return;
 	}
 
 	else if (c == '%'){
-		c = getCharFromQ();		
+		//TChar();
+		c = getCharFromQ();
+        //nextAtr();	
 		F();
 		TP();
 		return;
@@ -1009,15 +1208,19 @@ void TP(){
 		error(c,"TP");
 }
 
+//Funciones
 void F(){
 	//printf("\n F() %c",c);
 	if (c == '('){
-		c = getCharFromQ();
+		//TChar();
+		c = getCharFromQ();		
+        //nextAtr();
 		E();
 
 		if (c == ')'){
-			c = getCharFromQ();
-			//return;
+			//TChar();
+            c = getCharFromQ();		
+            //nextAtr();
 		}
 		else
 			error(c,"F");
@@ -1026,17 +1229,23 @@ void F(){
 	}
 
 	else if (c == 'a'){
+        //TP();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 
 	else if (c == 'n'){
+        //TChar();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 
 	else if (c == 'r'){
+        //TChar();
 		c = getCharFromQ();
+        //nextAtr();
 		return;
 	}
 	
@@ -1169,10 +1378,10 @@ int main(int argc, char *argv[]) {
 
     yyin = fopen(argv[1],"r");
     archSal = fopen("salida.txt","w");
+	salida = fopen("traduccion.txt","w");
     archErr = fopen("errores.txt", "w");
     tokens = fopen("tokens.txt","w");
     errSintactico = fopen("syntaxErrors.txt","w");
-
 
     initQueueInt(tokenQ);
     initQueueStr(identQ);
@@ -1183,16 +1392,17 @@ int main(int argc, char *argv[]) {
 
     yylex();
     fclose(archSal);
+	fclose(salida);
 
     muestraTablaInt(tokenQ);
-     muestraTablaStr(identQ, "idents");
-     muestraTablaStr(espQ, "espec");
-     muestraTablaStr(entQ, "enteros");
-     muestraTablaStr(floatQ, "floats");
-     muestraTablaStr(strQ, "strings");
+    muestraTablaStr(identQ, "idents");
+    muestraTablaStr(espQ, "espec");
+    muestraTablaStr(entQ, "enteros");
+    muestraTablaStr(floatQ, "floats");
+    muestraTablaStr(strQ, "strings");
     muestraTablaAtomo(syntaxQ, "Syntax");
 
-    analisisSintactico();
+    analisisSintactico(tokenQ);
 
     return 0;
 }
