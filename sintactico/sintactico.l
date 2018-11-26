@@ -388,13 +388,10 @@ void error(char val, char *atomo) {
 
 void analisisSintactico(intQueue *q) {
     printf(":: Inicio de analizador sintactico :: \n\n");
-
 	tokenP = (Numero*)malloc(sizeof(Numero));
-	printf("malloc %d", q->head->valor);
-    tokenP = tokenQ->head;  // A Q U I 
-	
+	tokenP = q->head;
 	printf("\n tokenP: %d", tokenP->clase);
-
+	curr = tokenP->tipo;
     getCharFromQ(); // INIT
     G();
 }
@@ -425,7 +422,8 @@ int TChar(){
 	return 0;
 }
 
-int TRes(){
+int TReserv(){
+	fprintf(salida,"%s", curr);
 return 0;
 }
 //avt
@@ -434,15 +432,36 @@ return 0;
 }
 
 //TP
-int TSim(){
+int TSimbol(){
+	fprintf(salida,"%s", curr);
 return 0;
 }
 //TS
 int TStr(){
+	fprintf(salida,"%s", curr);
 return 0;
 }
 
-int TRel(){
+int TRelac(){
+	printf("\n CURRRENT: %s",curr);
+	if( strcmp(".DIF.", curr) == 0 ){
+		fprintf(salida," != ");
+	}
+	if( strcmp(".IGL.", curr) == 0 ){
+		fprintf(salida," == ");
+	}
+	if( strcmp(".MN.", curr) == 0 ){
+		fprintf(salida," < ");
+	}
+	if( strcmp(".MNI.", curr) == 0 ){
+		fprintf(salida," <= ");
+	}
+	if( strcmp(".MY.", curr) == 0 ){
+		fprintf(salida," > ");
+	}
+	if( strcmp(".MYI.", curr) == 0 ){
+		fprintf(salida," >= ");
+	}
 return 0;
 }
 
@@ -451,7 +470,6 @@ return 0;
 void G(){
 	//printf("\n G() %c",c);
 	if (c == '['){
-
         TChar();
 
         fprintf (salida, "\n\t");
@@ -462,7 +480,7 @@ void G(){
 
 		if (c == ']'){
             fprintf(salida, "\n\t");
-            //TChar();
+            TChar();
 
 			c = getCharFromQ();
 		}
@@ -531,7 +549,7 @@ void D(int t, int p){
 		if (c == 'a'){
             //AVT(t,p);
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"D");
@@ -549,52 +567,52 @@ void D(int t, int p){
 void J(){
 	//printf("\n J() %c",c);
 	if (c == 'b'){
-        //TR();
+        TReserv();
         //int p;
         //int t;
         ////t = convertToInt(atr);
 
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
         ////p = convertToInt(atr);
 
 		return;
 	}
 
 	else if (c == 'c'){
-		//TR();
+		TReserv();
         //int p;
         //int t;
         //t = convertToInt(atr);
 
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
         //p = convertToInt(atr);
 
 		return;
 	}
 
 	else if (c == 'e'){
-		//TR();
+		TReserv();
         //int p;
         //int t;
         //t = convertToInt(atr);
 
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
         //p = convertToInt(atr);
 
 		return;
 	}
 
 	else if (c == 'd'){
-		//TR();
+		TReserv();
         //int p;
         //int t;
         //t = convertToInt(atr);
 
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
         //p = convertToInt(atr);
 
 		return;
@@ -609,10 +627,10 @@ void V(){
 	//printf("\n V() %c",c);
 	if (c == ','){
 
-        //TChar();
+        TChar();
         //int p;
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
         ////p = convertToInt(atr);
 
 		if (c == 'a'){
@@ -621,7 +639,7 @@ void V(){
 
 			c = getCharFromQ();
 
-            //nextAtr();
+            nextAtr();
 			//return;
 		}
 		else
@@ -632,12 +650,12 @@ void V(){
 	}
 
 	else if (c == ';'){
-        //TChar();
+        TChar();
         fprintf(salida, "\n\t");
 
 		c = getCharFromQ();
 
-        //nextAtr();
+        nextAtr();
 
 		return;
 	}
@@ -654,7 +672,7 @@ void S(){
 		A();
 
 		if (c == ';'){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
             nextAtr();
@@ -697,12 +715,12 @@ void A(){
 
         //TP();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 
 		if (c == '='){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-            //nextAtr();
+            nextAtr();
 		}
 		else
 			error(c,"A");
@@ -720,15 +738,15 @@ void H(){
 	//printf("\n H() %c",c);
 	if (c == 'h'){
 
-        //TR();
+        TReserv();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 
 		if (c == '['){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-            //nextAtr();
+            nextAtr();
 		}
 		else
 			error(c,"H");
@@ -737,25 +755,25 @@ void H(){
         fprintf(salida, "\n\t");
 
 		if (c == ']'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-            //nextAtr();
+            nextAtr();
 		}
 		else
 			error(c,"H");
 
 		if (c == 'm'){
-            //TR();
+            TReserv();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"H");
 
 		if (c == '('){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"H");
@@ -763,17 +781,17 @@ void H(){
 		R();
 
 		if (c == ')'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"H");
 
 		if (c == ';'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
             fprintf(salida, "\n\t");
 		}
 		else
@@ -792,14 +810,14 @@ void M(){
 	//printf("\n M() %c",c);
 	if (c == 'm'){
 		
-        //TR();
+        TReserv();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 
 		if (c == '('){
             TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"M");
@@ -807,18 +825,18 @@ void M(){
 		R();
 
 		if (c == ')'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"M");
 
 		if (c == '['){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"M");
@@ -827,9 +845,9 @@ void M(){
         fprintf(salida, "\n\t");
 
 		if (c == ']'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"M");
@@ -847,14 +865,14 @@ void P(){
 	//printf("\n P() %c",c);
 	if (c == 'p'){
 
-        //TR();
+        TReserv();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 
 		if (c == '('){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"R");
@@ -862,9 +880,9 @@ void P(){
 		A();
 
 		if (c == ';'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"R");
@@ -872,9 +890,9 @@ void P(){
 		R();
 
 		if (c == ';'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"R");
@@ -882,18 +900,18 @@ void P(){
 		A();
 
 		if (c == ')'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"R");
 
 		if (c == '['){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"R");
@@ -901,10 +919,10 @@ void P(){
 		Y();
 
 		if (c == ']'){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-            //nextAtr();
+            nextAtr();
 			return;
 		}
 		else
@@ -922,14 +940,14 @@ void I(){
 	//printf("\n I() %c",c);
 	if (c == 'i'){
 		
-        //TR();
+        TReserv();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 
 		if (c == '('){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"I");
@@ -937,18 +955,18 @@ void I(){
 		R();
 
 		if (c == ')'){
-            //TChar();
+            TChar();
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"I");
 
 		if (c == '['){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"I");
@@ -957,10 +975,10 @@ void I(){
         fprintf(salida, "\n\t");        
 
 		if (c == ']'){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"I");
@@ -983,15 +1001,15 @@ void N(){
 
 	else if (c == 'o'){
 		
-        //TR();
+        TReserv();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 
 		if (c == '['){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-			//nextAtr();
+			nextAtr();
 		}
 		else
 			error(c,"N");
@@ -1000,10 +1018,10 @@ void N(){
         fprintf(salida, "\n\t");
 
 		if (c == ']'){
-            //TChar();
+            TChar();
             fprintf(salida, "\n\t");
 			c = getCharFromQ();
-            ///nextAtr();
+            nextAtr();
 			return;
 		}
 		else
@@ -1074,44 +1092,44 @@ void Q(){
 void O(){
 	//printf("\n O() %c",c);
 	if (c == '!'){
-        //TOR();
+        TRelac();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 
 	else if (c == 'q'){
-		//TOR();
+		TRelac();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 
 	else if (c == '<'){
-		//TOR();
+		TRelac();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 
 	else if (c == 'l'){
-		//TOR();
+		TRelac();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 	
 	else if (c == '>'){
-		//TOR();
+		TRelac();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 	
 	else if (c == 'g'){
-		//TOR();
+		TRelac();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 	
@@ -1135,18 +1153,18 @@ void E(){
 void EP(){
 	//printf("E\n P() %c",c);
 	if (c == '+'){
-        //TChar();
+        TChar();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		T();
 		EP();
 		return;
 	}
 
 	else if (c == '-'){
-        //TChar();
+        TChar();
 		c = getCharFromQ();		
-        //nextAtr();
+        nextAtr();
 		T();
 		EP();
 		return;
@@ -1175,27 +1193,27 @@ void T(){
 void TP(){
 	//printf("T\n P() %c",c);
 	if (c == '*'){
-        //TChar();
+        TChar();
 		c = getCharFromQ();	
-        //nextAtr();
+        nextAtr();
 		F();
 		TP();
 		return;
 	}
 
 	else if (c == '/'){
-		//TChar();
+		TChar();
 		c = getCharFromQ();
-        //nextAtr();	
+        nextAtr();	
 		F();
 		TP();
 		return;
 	}
 
 	else if (c == '%'){
-		//TChar();
+		TChar();
 		c = getCharFromQ();
-        //nextAtr();	
+        nextAtr();	
 		F();
 		TP();
 		return;
@@ -1212,15 +1230,15 @@ void TP(){
 void F(){
 	//printf("\n F() %c",c);
 	if (c == '('){
-		//TChar();
+		TChar();
 		c = getCharFromQ();		
-        //nextAtr();
+        nextAtr();
 		E();
 
 		if (c == ')'){
-			//TChar();
+			TChar();
             c = getCharFromQ();		
-            //nextAtr();
+            nextAtr();
 		}
 		else
 			error(c,"F");
@@ -1229,23 +1247,23 @@ void F(){
 	}
 
 	else if (c == 'a'){
-        //TP();
+        TSimbol();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 
 	else if (c == 'n'){
-        //TChar();
+        TChar();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 
 	else if (c == 'r'){
-        //TChar();
+        TChar();
 		c = getCharFromQ();
-        //nextAtr();
+        nextAtr();
 		return;
 	}
 	
@@ -1392,7 +1410,6 @@ int main(int argc, char *argv[]) {
 
     yylex();
     fclose(archSal);
-	fclose(salida);
 
     muestraTablaInt(tokenQ);
     muestraTablaStr(identQ, "idents");
