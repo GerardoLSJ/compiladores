@@ -1,6 +1,7 @@
 [
 
     Cadena str;
+    Entero i;
     str := "str";
     Mientras( i .MN. 10)[
         Si(i .MY. 1)[

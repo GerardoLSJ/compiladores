@@ -428,6 +428,13 @@ return 0;
 }
 //avt
 int AddValTrans(){
+	int err = busquedaStr(identQ, curr);
+	if(err != -1){
+		printf("\n %s ya habia sido declarada",curr);
+	}
+	fprintf(salida," %s ",curr);
+
+
 return 0;
 }
 
@@ -547,7 +554,7 @@ void D(int t, int p){
 		J();
 
 		if (c == 'a'){
-            //AVT(t,p);
+            AddValTrans();
 			c = getCharFromQ();
 			nextAtr();
 		}
@@ -635,7 +642,7 @@ void V(){
 
 		if (c == 'a'){
 
-            //AVT(t, p);
+            AddValTrans();
 
 			c = getCharFromQ();
 
